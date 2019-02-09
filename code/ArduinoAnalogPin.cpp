@@ -9,3 +9,8 @@ void ArduinoAnalogPin::write(uint8_t value)
 {
     analogWrite(this->getAddress(), value);
 }
+
+void ArduinoAnalogPin::applyMode()
+{
+    pinMode(getAddress(), getMode());
+}

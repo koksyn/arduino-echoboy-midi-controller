@@ -6,8 +6,7 @@ void setup() {
   //start serial connection
   Serial.begin(9600);
 
-  pinMode(3, OUTPUT);
-  pin = new ArduinoDigitalPin(3, OUTPUT);
+  pin = new ArduinoDigitalPin(5, OUTPUT);
 
   pin->write(HIGH);
 }

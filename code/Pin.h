@@ -11,7 +11,7 @@ private:
 protected:
 	uint8_t getAddress();
 	uint8_t getMode();
-	//virtual void setMode(uint8_t mode);
+	virtual void applyMode();
 
 public:
 	Pin(uint8_t address, uint8_t mode);

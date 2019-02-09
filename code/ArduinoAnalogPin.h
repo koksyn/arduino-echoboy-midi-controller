@@ -5,9 +5,11 @@
 
 class ArduinoAnalogPin : Pin {
 public:
-  ArduinoAnalogPin(uint8_t address, uint8_t mode) : Pin(address, mode) { }
-  uint8_t read();
-  void write(uint8_t value);  
+    ArduinoAnalogPin(uint8_t address, uint8_t mode) : Pin(address, mode) { this->applyMode(); }
+
+    void applyMode();
+    uint8_t read();
+    void write(uint8_t value);
 };
 
 #endif
