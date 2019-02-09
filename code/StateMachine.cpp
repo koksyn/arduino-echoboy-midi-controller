@@ -9,7 +9,7 @@ StateMachine::StateMachine()
 	this->down_at = 0;
 	this->down = 0;
 }
-
+/*
 // Find the number of beats the button has been down for. Function can compute max. 8 sec down before rolling over.
 byte StateMachine::downFor()
 {
@@ -50,4 +50,4 @@ void StateMachine::turnOff()
 {
 	this->down = 0;
 	return;
-}
+}*/

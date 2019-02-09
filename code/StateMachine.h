@@ -10,13 +10,13 @@ private:
 
 public:
 	StateMachine();
-	void addState(Pin pin,)
+	/*void addState(Pin pin,)
 
 	byte downFor();
 	void resetDown();
 	bool isDown();
 	void turnOn();
-	void turnOff();
+	void turnOff();*/
 };
 
 #endif
