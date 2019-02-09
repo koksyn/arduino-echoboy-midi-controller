@@ -7,7 +7,7 @@ uint8_t ArduinoAnalogPin::read()
 
 void ArduinoAnalogPin::write(uint8_t value)
 {
-    analogWrite(this->getAddress(), value);
+    // not allowed
 }
 
 void ArduinoAnalogPin::applyMode()

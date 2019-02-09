@@ -1,19 +1,20 @@
 #include "ArduinoDigitalPin.h"
+#include "ArduinoAnalogPin.h"
 
-ArduinoDigitalPin* pin;
+Pin* pin;
+Pin* pin2;
 
 void setup() {
   //start serial connection
   Serial.begin(9600);
 
-  pin = new ArduinoDigitalPin(5, OUTPUT);
-
-  pin->write(HIGH);
+  pin = (Pin*) new ArduinoDigitalPin(5, OUTPUT);
+  pin2 = (Pin*) new ArduinoAnalogPin(A5, INPUT_PULLUP);
 }
 
 void loop() {
   
-  Serial.println("OK");
+  Serial.println(pin2->read());
 
   pin->write(LOW);
   delay(2000);
