@@ -1,18 +1,19 @@
+#include "pin/ArduinoDigitalPin.h"
 
-#include "Button.h"
-
-  Button btn;
+ArduinoDigitalPin pin;
 
 void setup() {
   //start serial connection
   Serial.begin(9600);
 
-  btn.turnOn();
+  pin = new ArduinoDigitalPin(3, OUTPUT);
+
+  pin.write(HIGH);
 }
 
 void loop() {
   
-  Serial.println(btn.isDown());
+  Serial.println("OK");
 
-  delay(500);
+  delay(2000);
 }
