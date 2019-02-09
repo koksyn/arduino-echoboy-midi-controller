@@ -1,5 +1,5 @@
 # arduino-echoboy-midi-controller
-Project of USB-MIDI controller for [EchoBoy](https://www.soundtoys.com/product/echoboy/) (delay effect VST) based on Arduino Uno.
+Project of USB-MIDI controller for [EchoBoy](https://www.soundtoys.com/product/echoboy/) (delay effect VST) based on [Arduino Uno](https://en.wikipedia.org/wiki/Arduino_Uno).
 
 ## Content
 
