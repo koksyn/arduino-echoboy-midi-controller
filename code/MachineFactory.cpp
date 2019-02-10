@@ -15,7 +15,7 @@ void MachineFactory::initialize()
     Machine* syncTime = (Machine*) new SyncTimeMachine();
 
     // insert
-    machines.insert(std::pair<String, Machine*>("SyncTimeDisabled", syncTimeDisabled));
+    machines.insert(std::pair<String, Machine*>("SyncTime", syncTime));
 }
 
 Machine* MachineFactory::get(String key)
