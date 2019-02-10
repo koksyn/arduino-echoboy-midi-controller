@@ -1,6 +1,9 @@
 #ifndef STATE_H
 #define STATE_H
 
+
+#include <Arduino.h>
+
 class Machine;
 #include "Machine.h"
 

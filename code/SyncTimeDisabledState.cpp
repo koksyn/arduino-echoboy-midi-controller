@@ -3,7 +3,7 @@
 
 void SyncTimeDisabledState::execute()
 {
-
+    Serial.println("DISABLED");
 }
 
 State* SyncTimeDisabledState::getInstance()
