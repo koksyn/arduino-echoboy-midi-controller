@@ -7,8 +7,10 @@
 
 std::map<String, Pin*> PinFactory::pins;
 
+// initialize MCP3008 analog to digital converter
 Adafruit_MCP3008* PinFactory::analogDigitalConverter = new Adafruit_MCP3008();
 
+// initailize PCF8574 digital I/O expanders
 PCF8574* PinFactory::buttonExpander = new PCF8574();
 PCF8574* PinFactory::buttonExpander2 = new PCF8574();
 PCF8574* PinFactory::ledExpander = new PCF8574();
@@ -23,29 +25,6 @@ bool PinFactory::notInitialized()
 
 void PinFactory::initialize()
 {
-    /*
-    // initialize MCP3008 analog to digital converter
-    analogDigitalConverter = new Adafruit_MCP3008();
-
-    // initailize PCF8574 digital I/O expanders
-    buttonExpander = new PCF8574();
-    buttonExpander2 = new PCF8574();
-    ledExpander = new PCF8574();
-    ledExpander2 = new PCF8574();
-    ledExpander3 = new PCF8574();
-    ledExpander4 = new PCF8574();*/
-
-    // run integrated circuits (caution: in case of wrong addresses program will stop working here)
-    // these instructions have to be executed BEFORE Pin objects creation
-    /*
-    ledExpander->begin(0x3A);
-    buttonExpander->begin(0x38);
-    buttonExpander2->begin(0x39);
-    ledExpander2->begin(0x3B);
-    ledExpander3->begin(0x3C);
-    ledExpander4->begin(0x3D);
-    */
-
     // build
     Pin* pin = (Pin*) new ArduinoDigitalPin(5, OUTPUT);
     Pin* pin2 = (Pin*) new ArduinoAnalogPin(A5, INPUT);
@@ -93,7 +72,20 @@ void onExpanderInterrupt()
 
 void PinFactory::runIntegratedCircuits()
 {
+    //Pin* pin4 = get("pin4");
+    //pin4->applyMode();
+
+    /* ku pamieci
+    ledExpander->begin(0x3A);
+    buttonExpander->begin(0x38);
+    buttonExpander2->begin(0x39);
+    ledExpander2->begin(0x3B);
+    ledExpander3->begin(0x3C);
+    ledExpander4->begin(0x3D);
+    */
+
     analogDigitalConverter->begin();
+
     buttonExpander->begin(0x3A);
 
     // for interrupts! on arduino
@@ -103,13 +95,11 @@ void PinFactory::runIntegratedCircuits()
     // for interrupts from whole PCF
     buttonExpander->enableInterrupt(2, onExpanderInterrupt);
 
-
-    //Pin* pin4 = get("pin4");
-    //pin4->applyMode();
-
+    // open pin 5 on PCF
     Pin* pin5 = get("pin5");
     pin5->applyMode();
 
+    // attach INT on 5 pin
     buttonExpander->attachInterrupt(4, x, FALLING);
 }
 
