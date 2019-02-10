@@ -2,6 +2,8 @@
 #define Machine_h
 
 //#include <ArduinoSTL.h>
+
+class State;
 #include "State.h"
 
 class Machine {
@@ -9,9 +11,10 @@ class Machine {
 
 	private:
 		State* currentState;
+	protected:
 		void setState(State* state);
 	public:
-		StateMachine();
+		Machine();
 		void nextState();
 		void executeCurrentState();
 

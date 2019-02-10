@@ -13,7 +13,7 @@ Machine::Machine()
 
 void Machine::nextState()
 {
-	currentState->next(*this);
+	currentState->next(this);
 	executeCurrentState();
 }
 
