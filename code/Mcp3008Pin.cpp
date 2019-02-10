@@ -12,5 +12,10 @@ void Mcp3008Pin::write(uint8_t value)
 
 void Mcp3008Pin::applyMode()
 {
-    converter->begin();
+
+}
+
+void Mcp3008Pin::attachInterrupt(void (*userFunc)(void), uint8_t interruptMode)
+{
+    // not implemented (or allowed)
 }

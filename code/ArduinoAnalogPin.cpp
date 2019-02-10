@@ -14,3 +14,8 @@ void ArduinoAnalogPin::applyMode()
 {
     pinMode(getAddress(), getMode());
 }
+
+void ArduinoAnalogPin::attachInterrupt(void (*userFunc)(void), uint8_t interruptMode)
+{
+
+}

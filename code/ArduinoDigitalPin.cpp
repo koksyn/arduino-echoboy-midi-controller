@@ -14,3 +14,8 @@ void ArduinoDigitalPin::applyMode()
 {
     pinMode(getAddress(), getMode());
 }
+
+void ArduinoDigitalPin::attachInterrupt(void (*userFunc)(void), uint8_t interruptMode)
+{
+
+}

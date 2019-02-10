@@ -9,15 +9,15 @@ private:
     Adafruit_MCP3008* converter;
 
 public:
-    Mcp3008Pin(uint8_t address, uint8_t mode) : Pin(address, mode) {
-        converter = new Adafruit_MCP3008();
-
+    Mcp3008Pin(uint8_t address, uint8_t mode, Adafruit_MCP3008* converter) : Pin(address, mode) {
+        this->converter = converter;
         applyMode();
     }
 
     void applyMode();
     uint8_t read();
     void write(uint8_t value);
+    void attachInterrupt(void (*userFunc)(void), uint8_t interruptMode);
 };
 
 #endif
