@@ -14,3 +14,8 @@ void Pcf8574Pin::applyMode()
 {
     expander->pinMode(getAddress(), getMode());
 }
+
+void Pcf8574Pin::attachInterrupt(void (*userFunc)(void), uint8_t interruptMode)
+{
+    expander->attachInterrupt(getAddress(), userFunc, interruptMode);
+}

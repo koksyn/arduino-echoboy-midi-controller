@@ -18,6 +18,7 @@ public:
 	virtual uint8_t read();
 	virtual void write(uint8_t value);
 	virtual void applyMode();
+	virtual void attachInterrupt(void (*userFunc)(void), uint8_t interruptMode);
 };
 
 #endif

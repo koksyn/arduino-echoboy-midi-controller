@@ -17,5 +17,5 @@ void ArduinoAnalogPin::applyMode()
 
 void ArduinoAnalogPin::attachInterrupt(void (*userFunc)(void), uint8_t interruptMode)
 {
-
+    // not handled
 }

@@ -17,5 +17,5 @@ void ArduinoDigitalPin::applyMode()
 
 void ArduinoDigitalPin::attachInterrupt(void (*userFunc)(void), uint8_t interruptMode)
 {
-
+    attachInterrupt(digitalPinToInterrupt(getAddress()), userFunc, interruptMode);
 }
