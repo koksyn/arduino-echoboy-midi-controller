@@ -7,7 +7,7 @@
 Pin* pin;
 Pin* pin2;
 Pin* pin3;
-SyncTimeMachine* syncTimeMachine;
+Machine* syncTimeMachine;
 
 void setup() {
   //start serial connection
@@ -18,7 +18,7 @@ void setup() {
   pin2 = (Pin*) new ArduinoAnalogPin(A5, INPUT);
   pin3 = (Pin*) new Mcp3008Pin(1, INPUT);
 
-  syncTimeMachine = new SyncTimeMachine();
+  syncTimeMachine = (Machine*) new SyncTimeMachine();
 }
 
 void loop() {
@@ -26,15 +26,15 @@ void loop() {
   Serial.println(pin2->read());
   Serial.println(pin3->read());
 
-  //syncTimeMachine->nextState();
+  syncTimeMachine->nextState();
 
   pin->write(LOW);
-  delay(2000);
+  delay(500);
 
-  //syncTimeMachine->nextState();
+  syncTimeMachine->nextState();
 
   pin->write(HIGH);
-  delay(2000);
+  delay(500);
 }
 
 // linux problems: sudo chmod a+rw /dev/ttyACM0

@@ -10,5 +10,5 @@ SyncTimeMachine::SyncTimeMachine()
 
 void SyncTimeMachine::setDefaultState()
 {
-    setState(StateFactory::get("SyncTimeDisabledState"));
+    setState(StateFactory::get("SyncTimeDisabled"));
 }

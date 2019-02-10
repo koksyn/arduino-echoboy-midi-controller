@@ -44,10 +44,13 @@ State* StateFactory::get(String key)
     auto search = states.find(key);
 
     if(search == states.end()) {
-        return nullptr; // not found
+        // Very useful debug
+        Serial.print("State not found! Name: ");
+        Serial.println(key);
+        delay(500);
+
+        return nullptr;
     }
 
     return states[key];
-
-    //return (State*) new SyncTimeDisabledState();
 }
