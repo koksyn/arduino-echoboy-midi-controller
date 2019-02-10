@@ -9,8 +9,8 @@ class MachineFactory {
 private:
     static std::map<String, Machine*> machines;
     static bool notInitialized();
-    static void initialize();
 public:
+    static void initialize();
     static Machine* get(String key);
 };
 

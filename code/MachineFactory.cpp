@@ -21,8 +21,14 @@ void MachineFactory::initialize()
 Machine* MachineFactory::get(String key)
 {
     if(notInitialized()) {
+        Serial.println("hm?");
         initialize();
     }
+
+    /*
+    for(auto i = machines.begin(); i!= machines.end(); i++) {
+        Serial.println("cos jest");
+    }*/
 
     auto search = machines.find(key);
 

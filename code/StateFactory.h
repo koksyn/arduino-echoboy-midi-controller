@@ -9,8 +9,8 @@ class StateFactory {
 private:
     static std::map<String, State*> states;
     static bool notInitialized();
-    static void initialize();
 public:
+    static void initialize();
     static State* get(String key);
 };
 
