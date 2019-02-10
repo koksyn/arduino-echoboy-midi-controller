@@ -2,7 +2,7 @@
 
 uint8_t ArduinoAnalogPin::read()
 {
-    return analogRead(this->getAddress());
+    return analogRead(getAddress());
 }
 
 void ArduinoAnalogPin::write(uint8_t value)

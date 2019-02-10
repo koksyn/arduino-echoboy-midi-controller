@@ -12,7 +12,7 @@ public:
     Mcp3008Pin(uint8_t address, uint8_t mode) : Pin(address, mode) {
         converter = new Adafruit_MCP3008();
 
-        this->applyMode();
+        applyMode();
     }
 
     void applyMode();

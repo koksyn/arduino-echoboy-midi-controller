@@ -5,7 +5,7 @@
 
 class ArduinoDigitalPin : Pin {
 public:
-    ArduinoDigitalPin(uint8_t address, uint8_t mode) : Pin(address, mode) { this->applyMode(); }
+    ArduinoDigitalPin(uint8_t address, uint8_t mode) : Pin(address, mode) { applyMode(); }
 
     void applyMode();
     uint8_t read();

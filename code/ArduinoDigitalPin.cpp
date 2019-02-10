@@ -2,12 +2,12 @@
 
 uint8_t ArduinoDigitalPin::read()
 {
-    return digitalRead(this->getAddress());
+    return digitalRead(getAddress());
 }
 
 void ArduinoDigitalPin::write(uint8_t value)
 {
-    digitalWrite(this->getAddress(), value);
+    digitalWrite(getAddress(), value);
 }
 
 void ArduinoDigitalPin::applyMode()
