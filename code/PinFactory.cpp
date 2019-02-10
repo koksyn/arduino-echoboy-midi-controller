@@ -60,8 +60,15 @@ Pin* PinFactory::get(String key)
     return pins[key];
 }
 
+// InterruptRouter (on może miec liste interrupt handlers utworzona w sobie)
+/////////// to cale ponizej mozna wyeksportowac do nowej klasy (tylko kod dotryczacy przerwan) -> reszte zostawic np . begin() begin(0x3A) itp.
+
 void x() {
     Serial.println("Przerwanie");
+    // tutaj pobierz z fabryki / utworz jakis StyleTapeInterruptHandler
+    // uruchom jego metodę "handle"
+
+    // on powinien miec dostep do MachineFactory, aby uruchamiac potrzebne rzeczy na nich
 }
 
 void onExpanderInterrupt()
