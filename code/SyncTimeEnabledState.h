@@ -4,12 +4,8 @@
 #include "State.h"
 
 class SyncTimeEnabledState : State {
-private:
-    static State* instance;
 public:
-    SyncTimeEnabledState(State* nextState) : State(nextState) {}
     void execute();
-    static State* getInstance();
 };
 
 #endif

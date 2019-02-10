@@ -5,12 +5,6 @@ void Machine::setState(State *state)
 	currentState = state;
 }
 
-Machine::Machine()
-{
-	setDefaultState();
-	executeCurrentState();
-}
-
 void Machine::nextState()
 {
 	currentState->next(this);

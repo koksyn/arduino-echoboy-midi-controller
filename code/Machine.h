@@ -1,9 +1,6 @@
 #ifndef Machine_h
 #define Machine_h
 
-//#include <ArduinoSTL.h>
-
-class State;
 #include "State.h"
 
 class Machine {
@@ -14,7 +11,6 @@ class Machine {
 	protected:
 		void setState(State* state);
 	public:
-		Machine();
 		void nextState();
 		void executeCurrentState();
 

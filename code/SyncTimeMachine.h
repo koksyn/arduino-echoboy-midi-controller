@@ -2,10 +2,10 @@
 #define SYNC_TIME_MACHINE_H
 
 #include "Machine.h"
-#include "SyncTimeDisabledState.h"
 
 class SyncTimeMachine : Machine {
 public:
+    SyncTimeMachine();
     void setDefaultState();
 };
 

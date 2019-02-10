@@ -1,6 +1,14 @@
 #include "SyncTimeMachine.h"
 
+#include "StateFactory.h"
+
+SyncTimeMachine::SyncTimeMachine()
+{
+    setDefaultState();
+    executeCurrentState();
+}
+
 void SyncTimeMachine::setDefaultState()
 {
-    setState(SyncTimeDisabledState::getInstance());
+    setState(StateFactory::get("SyncTimeDisabledState"));
 }
