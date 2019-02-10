@@ -1,5 +1,7 @@
 #include "ArduinoDigitalPin.h"
 
+#include <Arduino.h>
+
 uint8_t ArduinoDigitalPin::read()
 {
     return digitalRead(getAddress());
@@ -17,5 +19,5 @@ void ArduinoDigitalPin::applyMode()
 
 void ArduinoDigitalPin::attachInterrupt(void (*userFunc)(void), uint8_t interruptMode)
 {
-    attachInterrupt(digitalPinToInterrupt(getAddress()), userFunc, interruptMode);
+    ::attachInterrupt(digitalPinToInterrupt(getAddress()), userFunc, interruptMode);
 }

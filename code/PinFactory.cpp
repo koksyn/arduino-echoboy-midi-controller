@@ -1,5 +1,7 @@
 #include "PinFactory.h"
 
+#include <ArduinoSTL.h>
+#include <map>
 #include "ArduinoDigitalPin.h"
 #include "ArduinoAnalogPin.h"
 #include "Mcp3008Pin.h"
@@ -65,12 +67,12 @@ void PinFactory::initialize()
     Pin* syncTimeLed = (Pin*) new ArduinoDigitalPin(6, OUTPUT);
     Pin* primeNumbersLed = (Pin*) new ArduinoDigitalPin(7, OUTPUT);
 
-    pins.insert(std::pair<String, Pin*>("DipMidi1", DipMidi1));
-    pins.insert(std::pair<String, Pin*>("InterruptForPCF", InterruptForPCF));
-    pins.insert(std::pair<String, Pin*>("MidiAllLed", MidiAllLed));
-    pins.insert(std::pair<String, Pin*>("BypassLed", BypassLed));
-    pins.insert(std::pair<String, Pin*>("SyncTimeLed", SyncTimeLed));
-    pins.insert(std::pair<String, Pin*>("PrimeNumbersLed", PrimeNumbersLed));
+    pins.insert(std::pair<String, Pin*>("DipMidi1", dipMidi1));
+    pins.insert(std::pair<String, Pin*>("InterruptForPCF", interruptForPCF));
+    pins.insert(std::pair<String, Pin*>("MidiAllLed", midiAllLed));
+    pins.insert(std::pair<String, Pin*>("BypassLed", bypassLed));
+    pins.insert(std::pair<String, Pin*>("SyncTimeLed", syncTimeLed));
+    pins.insert(std::pair<String, Pin*>("PrimeNumbersLed", primeNumbersLed));
 
     // PCF 1 (INT) for BUTTONS
     Pin* dipMidi2 = (Pin*) new Pcf8574Pin(0, INPUT_PULLUP, buttonExpander);
@@ -109,7 +111,7 @@ void PinFactory::initialize()
     pins.insert(std::pair<String, Pin*>("AtmoStyleButton", atmoStyleButton));
     pins.insert(std::pair<String, Pin*>("MidiAllButton", midiAllButton));
     pins.insert(std::pair<String, Pin*>("BypassButton", bypassButton));
-/*
+
     // PCF 3 for LED
     Pin* studioTapeLed = (Pin*) new Pcf8574Pin(0, OUTPUT, ledExpander);
     Pin* cheapTapeLed = (Pin*) new Pcf8574Pin(1, OUTPUT, ledExpander);
@@ -184,7 +186,7 @@ void PinFactory::initialize()
     pins.insert(std::pair<String, Pin*>("TimeEcho1Led", timeEcho1Led));
     pins.insert(std::pair<String, Pin*>("NoteEcho1Led", noteEcho1Led));
     pins.insert(std::pair<String, Pin*>("TimeEcho2Led", timeEcho2Led));
-    pins.insert(std::pair<String, Pin*>("NoteEcho2Led", noteEcho2Led));*/
+    pins.insert(std::pair<String, Pin*>("NoteEcho2Led", noteEcho2Led));
 }
 
 PCF8574* PinFactory::getButtonExpander()
@@ -230,8 +232,11 @@ void PinFactory::runIntegratedCircuits()
     ledExpander4->begin(0x3D);
     */
 
+    int i = 0;
     // apply modes for all pins
-    for(auto iter = pins.begin(); iter != pins.end(); iter++) {
-        iter->applyMode();
+    for(auto iter = pins.begin(); (iter != pins.end()) || (i<35); iter++) {
+        std::pair<String, Pin*> x = *iter; 
+        x.second->applyMode();
+        i++;
     }
 }
