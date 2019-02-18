@@ -1,5 +1,11 @@
 #include "Machine.h"
 
+Machine::Machine(State* initialState)
+{
+    setState(initialState);
+	executeCurrentState();
+}
+
 void Machine::setState(State *state)
 {
 	currentState = state;

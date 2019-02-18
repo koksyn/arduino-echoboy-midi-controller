@@ -11,10 +11,9 @@ class Machine {
 	protected:
 		void setState(State* state);
 	public:
+		Machine(State* initialState);
 		void nextState();
 		void executeCurrentState();
-
-		virtual void setDefaultState();
 };
 
 #endif
