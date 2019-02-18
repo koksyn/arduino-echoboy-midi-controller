@@ -34,3 +34,7 @@
 # IDE
 .idea
 *.iml
+
+# custom
+CMakeLists.txt
+cmake-build-debug/
