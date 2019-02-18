@@ -5,14 +5,17 @@
 
 class Machine;
 
+typedef void(*Func)(void);
+
 class State {
 private:
     State* nextState;
+    Func funcForExecute;
 public:
+    State(Func funcForExecute);
     void next(Machine* machine);
     void setNextState(State* nextState);
-
-    virtual void execute();
+    void execute();
 };
 
 #endif

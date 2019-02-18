@@ -1,15 +1,17 @@
 #include "StateFactory.h"
 
-#include "SyncTimeDisabledState.h"
-#include "SyncTimeEnabledState.h"
-
 State* StateFactory::states[STATES];
 
 void StateFactory::initialize()
 {
     // build
-    states[STATE_SYNC_TIME_DISABLED] = (State*) new SyncTimeDisabledState();
-    states[STATE_SYNC_TIME_ENABLED] = (State*) new SyncTimeEnabledState();
+    states[STATE_SYNC_TIME_DISABLED] = new State([&]() {
+        Serial.println("Disabled");
+    });
+
+    states[STATE_SYNC_TIME_ENABLED] = new State([&]() {
+        Serial.println("Enabled");
+    });
 
     // connect
     states[STATE_SYNC_TIME_DISABLED]->setNextState(states[STATE_SYNC_TIME_ENABLED]);
