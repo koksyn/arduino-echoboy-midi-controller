@@ -8,12 +8,14 @@ class Machine {
 
 	private:
 		State* currentState;
-	protected:
-		void setState(State* state);
+		State* initialState;
 	public:
 		Machine(State* initialState);
 		void nextState();
+		void applyInitialState();
 		void executeCurrentState();
+		void setState(State* state);
+		bool equalsState(State* state);
 };
 
 #endif

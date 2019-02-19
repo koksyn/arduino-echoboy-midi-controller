@@ -15,6 +15,9 @@ public:
 	Pin(uint8_t address, uint8_t mode);
 
 	uint8_t getAddress();
+	void writeHigh();
+	void writeLow();
+
 	virtual uint8_t read();
 	virtual void write(uint8_t value);
 	virtual void applyMode();
