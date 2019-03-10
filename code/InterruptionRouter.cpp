@@ -4,10 +4,12 @@
 
 void onExpanderInterrupt()
 {
-//    Serial.println("I2C interrupt detected");
     PinFactory::getButtonExpander()
             ->checkForInterrupt();
+}
 
+void onExpander2Interrupt()
+{
     PinFactory::getButtonExpander2()
             ->checkForInterrupt();
 }
@@ -18,12 +20,15 @@ void InterruptionRouter::enableInterruptions()
     Pin* interruptForPCF = PinFactory::get(PIN_INT_FROM_PCF);
     interruptForPCF->write(HIGH);
 
+    Pin* interruptForPCF2 = PinFactory::get(PIN_INT_FROM_PCF_2);
+    interruptForPCF2->write(HIGH);
+
     // --- enable interrupts for each dedicated PCF ---
     PinFactory::getButtonExpander()
             ->enableInterrupt(interruptForPCF->getAddress(), onExpanderInterrupt);
 
     PinFactory::getButtonExpander2()
-            ->enableInterrupt(interruptForPCF->getAddress(), onExpanderInterrupt);
+            ->enableInterrupt(interruptForPCF2->getAddress(), onExpander2Interrupt);
 
     // --- bind PCF pins to callbacks (using lambdas) ---
 
@@ -39,10 +44,6 @@ void InterruptionRouter::enableInterruptions()
 
     PinFactory::get(PIN_BUTTON_DIP_MIDI_3)->attachInterrupt([&]() {
         buttonPressed = PIN_BUTTON_DIP_MIDI_3;
-    }, CHANGE);
-
-    PinFactory::get(PIN_BUTTON_DIP_MIDI_4)->attachInterrupt([&]() {
-        buttonPressed = PIN_BUTTON_DIP_MIDI_4;
     }, CHANGE);
 
     PinFactory::get(PIN_BUTTON_MODE)->attachInterrupt([&]() {
