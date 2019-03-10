@@ -88,6 +88,8 @@ void StateFactory::initialize()
 
         // led
         PinFactory::get(PIN_LED_MODE_PING_PONG)->write(LOW);
+        PinFactory::get(PIN_LED_MODE_DUAL)->write(HIGH); // off (for initial state - disabling light on LED)
+        PinFactory::get(PIN_LED_MODE_RHYTM)->write(HIGH); // off (for initial state - disabling light on LED)
         PinFactory::get(PIN_LED_MODE_SINGLE)->write(HIGH); // off
     });
 
@@ -154,6 +156,8 @@ void StateFactory::initialize()
 
         // leds
         PinFactory::get(PIN_LED_TAPE_STUDIO)->write(LOW);
+        PinFactory::get(PIN_LED_TAPE_CHEAP)->write(HIGH); // off (for initial state - disabling light on LED)
+        PinFactory::get(PIN_LED_TAPE_TUBE)->write(HIGH); // off (for initial state - disabling light on LED)
         PinFactory::get(PIN_LED_TAPE_MASTER)->write(HIGH); // off
     });
 

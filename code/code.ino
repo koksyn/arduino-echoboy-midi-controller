@@ -11,10 +11,11 @@ void setup() {
   while (!Serial);
 
   PinFactory::initialize();
+  PinFactory::runIntegratedCircuits();
+
   StateFactory::initialize();
   MachineFactory::initialize();
 
-  PinFactory::runIntegratedCircuits();
   InterruptionRouter::enableInterruptions();
 
   Serial.println("Setup ready");
