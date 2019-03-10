@@ -19,13 +19,3 @@ void Mcp3008Pin::attachInterrupt(void (*userFunc)(void), uint8_t interruptMode)
 {
     // not handled
 }
-
-void Mcp3008Pin::on()
-{
-    // not allowed
-}
-
-void Mcp3008Pin::off()
-{
-    // not allowed
-}

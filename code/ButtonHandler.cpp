@@ -130,7 +130,7 @@ void ButtonHandler::handle(uint8_t code)
         // MASTER
         case PIN_BUTTON_MIDI_ALL:
             // LED on
-            PinFactory::get(PIN_LED_MIDI_ALL)->on();//write(HIGH);
+            PinFactory::get(PIN_LED_MIDI_ALL)->write(HIGH);
 
             // execute all machines
             for(int i=0; i<MACHINES; i++) {
@@ -140,7 +140,7 @@ void ButtonHandler::handle(uint8_t code)
 
             // delay + LED off
             delay(100);
-            PinFactory::get(PIN_LED_MIDI_ALL)->off();//write(LOW);
+            PinFactory::get(PIN_LED_MIDI_ALL)->write(LOW);
             break;
         case PIN_BUTTON_BYPASS:
             MachineFactory::get(MACHINE_BYPASS)->nextState();

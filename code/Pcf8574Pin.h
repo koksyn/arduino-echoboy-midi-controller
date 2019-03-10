@@ -17,8 +17,6 @@ public:
     uint8_t read();
     void write(uint8_t value);
     void attachInterrupt(void (*userFunc)(void), uint8_t interruptMode);
-    void on();
-    void off();
 };
 
 #endif
