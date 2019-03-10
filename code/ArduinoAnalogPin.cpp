@@ -19,3 +19,13 @@ void ArduinoAnalogPin::attachInterrupt(void (*userFunc)(void), uint8_t interrupt
 {
     // not handled
 }
+
+void ArduinoAnalogPin::on()
+{
+    write(HIGH);
+}
+
+void ArduinoAnalogPin::off()
+{
+    write(LOW);
+}
