@@ -24,7 +24,7 @@
 #define PIN_KNOB_RHYTM_DECAY     12
 
 // ARDUINO Digital
-#define PIN_BUTTON_DIP_MIDI_1   13
+#define PIN_BUTTON_DIP_MIDI_4   13
 #define PIN_INT_FROM_PCF        14
 #define PIN_LED_MIDI_ALL        15
 #define PIN_LED_BYPASS          16
@@ -32,9 +32,9 @@
 #define PIN_LED_PRIME_NUMBERS   18
 
 // PCF 1 (INT) for BUTTONS
-#define PIN_BUTTON_DIP_MIDI_2       19
-#define PIN_BUTTON_DIP_MIDI_3       20
-#define PIN_BUTTON_DIP_MIDI_4       21
+#define PIN_BUTTON_DIP_MIDI_3       19
+#define PIN_BUTTON_DIP_MIDI_2       20
+#define PIN_BUTTON_DIP_MIDI_1       21
 #define PIN_BUTTON_MODE             22
 #define PIN_BUTTON_ECHO_1           23
 #define PIN_BUTTON_ECHO_2           24
