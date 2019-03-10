@@ -22,10 +22,10 @@ void Pcf8574Pin::attachInterrupt(void (*userFunc)(void), uint8_t interruptMode)
 
 void Pcf8574Pin::on()
 {
-    write(LOW);
+    write(HIGH);
 }
 
 void Pcf8574Pin::off()
 {
-    write(HIGH);
+    write(LOW);
 }

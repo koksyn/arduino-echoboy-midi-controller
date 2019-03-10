@@ -7,16 +7,6 @@ uint8_t Pin::getAddress()
 	return address;
 }
 
-void Pin::on()
-{
-	write(HIGH);
-}
-
-void Pin::off()
-{
-	write(LOW);
-}
-
 uint8_t Pin::getMode()
 {
 	return mode;
