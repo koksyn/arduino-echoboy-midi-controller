@@ -11,14 +11,14 @@ void StateFactory::initialize()
         // midi
 
         // led
-        PinFactory::get(PIN_LED_SYNC_TIME)->write(LOW); // off
+        PinFactory::get(PIN_LED_SYNC_TIME)->off();//write(LOW); // off
     });
 
     states[STATE_SYNC_TIME_ENABLED] = new State([&]() {
         // midi
 
         // led
-        PinFactory::get(PIN_LED_SYNC_TIME)->write(HIGH); // on
+        PinFactory::get(PIN_LED_SYNC_TIME)->on();//write(HIGH); // on
     });
 
     states[STATE_SYNC_TIME_DISABLED]->setNextState(states[STATE_SYNC_TIME_ENABLED]);
@@ -29,14 +29,14 @@ void StateFactory::initialize()
         // midi
 
         // led
-        PinFactory::get(PIN_LED_PRIME_NUMBERS)->write(LOW); // off
+        PinFactory::get(PIN_LED_PRIME_NUMBERS)->off();//write(LOW); // off
     });
 
     states[STATE_PRIME_NUMBERS_ENABLED] = new State([&]() {
         // midi
 
         // led
-        PinFactory::get(PIN_LED_PRIME_NUMBERS)->write(HIGH); // on
+        PinFactory::get(PIN_LED_PRIME_NUMBERS)->on();//write(HIGH); // on
     });
 
     states[STATE_PRIME_NUMBERS_DISABLED]->setNextState(states[STATE_PRIME_NUMBERS_ENABLED]);
@@ -125,14 +125,14 @@ void StateFactory::initialize()
         // midi
 
         // led
-        PinFactory::get(PIN_LED_BYPASS)->write(LOW); // off
+        PinFactory::get(PIN_LED_BYPASS)->off(); //write(LOW); // off
     });
 
     states[STATE_BYPASS_ENABLED] = new State([&]() {
         // midi
 
         // led
-        PinFactory::get(PIN_LED_BYPASS)->write(HIGH); // on
+        PinFactory::get(PIN_LED_BYPASS)->on(); //write(HIGH); // on
     });
 
     states[STATE_BYPASS_DISABLED]->setNextState(states[STATE_BYPASS_ENABLED]);

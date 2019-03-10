@@ -22,10 +22,10 @@ void ArduinoAnalogPin::attachInterrupt(void (*userFunc)(void), uint8_t interrupt
 
 void ArduinoAnalogPin::on()
 {
-    write(HIGH);
+    // not allowed
 }
 
 void ArduinoAnalogPin::off()
 {
-    write(LOW);
+    // not allowed
 }
