@@ -19,13 +19,3 @@ void ArduinoAnalogPin::attachInterrupt(void (*userFunc)(void), uint8_t interrupt
 {
     // not handled
 }
-
-void ArduinoAnalogPin::on()
-{
-    // not allowed
-}
-
-void ArduinoAnalogPin::off()
-{
-    // not allowed
-}

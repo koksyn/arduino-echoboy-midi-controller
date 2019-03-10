@@ -21,13 +21,3 @@ void ArduinoDigitalPin::attachInterrupt(void (*userFunc)(void), uint8_t interrup
 {
     ::attachInterrupt(digitalPinToInterrupt(getAddress()), userFunc, interruptMode);
 }
-
-void ArduinoDigitalPin::on()
-{
-    write(HIGH);
-}
-
-void ArduinoDigitalPin::off()
-{
-    write(LOW);
-}
