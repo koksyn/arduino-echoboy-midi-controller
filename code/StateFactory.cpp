@@ -47,16 +47,16 @@ void StateFactory::initialize()
         // midi
 
         // led
-        PinFactory::get(PIN_LED_ECHO_1_NOTE)->write(LOW);
-        PinFactory::get(PIN_LED_ECHO_1_TIME)->write(HIGH);
+        PinFactory::get(PIN_LED_ECHO_1_NOTE)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ECHO_1_TIME)->write(LOW);
     });
 
     states[STATE_ECHO_1_NOTE] = new State([&]() {
         // midi
 
         // led
-        PinFactory::get(PIN_LED_ECHO_1_NOTE)->write(HIGH);
-        PinFactory::get(PIN_LED_ECHO_1_TIME)->write(LOW);
+        PinFactory::get(PIN_LED_ECHO_1_NOTE)->write(LOW);
+        PinFactory::get(PIN_LED_ECHO_1_TIME)->write(HIGH); // off
     });
 
     states[STATE_ECHO_1_TIME]->setNextState(states[STATE_ECHO_1_NOTE]);
@@ -67,16 +67,16 @@ void StateFactory::initialize()
         // midi
 
         // led
-        PinFactory::get(PIN_LED_ECHO_2_NOTE)->write(LOW);
-        PinFactory::get(PIN_LED_ECHO_2_TIME)->write(HIGH);
+        PinFactory::get(PIN_LED_ECHO_2_NOTE)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ECHO_2_TIME)->write(LOW);
     });
 
     states[STATE_ECHO_2_NOTE] = new State([&]() {
         // midi
 
         // led
-        PinFactory::get(PIN_LED_ECHO_2_NOTE)->write(HIGH);
-        PinFactory::get(PIN_LED_ECHO_2_TIME)->write(LOW);
+        PinFactory::get(PIN_LED_ECHO_2_NOTE)->write(LOW);
+        PinFactory::get(PIN_LED_ECHO_2_TIME)->write(HIGH); // off
     });
 
     states[STATE_ECHO_2_TIME]->setNextState(states[STATE_ECHO_2_NOTE]);
@@ -87,32 +87,32 @@ void StateFactory::initialize()
         // midi
 
         // led
-        PinFactory::get(PIN_LED_MODE_PING_PONG)->write(HIGH);
-        PinFactory::get(PIN_LED_MODE_SINGLE)->write(LOW);
+        PinFactory::get(PIN_LED_MODE_PING_PONG)->write(LOW);
+        PinFactory::get(PIN_LED_MODE_SINGLE)->write(HIGH); // off
     });
 
     states[STATE_MODE_DUAL] = new State([&]() {
         // midi
 
         // led
-        PinFactory::get(PIN_LED_MODE_DUAL)->write(HIGH);
-        PinFactory::get(PIN_LED_MODE_PING_PONG)->write(LOW);
+        PinFactory::get(PIN_LED_MODE_DUAL)->write(LOW);
+        PinFactory::get(PIN_LED_MODE_PING_PONG)->write(HIGH); // off
     });
 
     states[STATE_MODE_RHYTM] = new State([&]() {
         // midi
 
         // led
-        PinFactory::get(PIN_LED_MODE_RHYTM)->write(HIGH);
-        PinFactory::get(PIN_LED_MODE_DUAL)->write(LOW);
+        PinFactory::get(PIN_LED_MODE_RHYTM)->write(LOW);
+        PinFactory::get(PIN_LED_MODE_DUAL)->write(HIGH); // off
     });
 
     states[STATE_MODE_SINGLE] = new State([&]() {
         // midi
 
         // led
-        PinFactory::get(PIN_LED_MODE_SINGLE)->write(HIGH);
-        PinFactory::get(PIN_LED_MODE_RHYTM)->write(LOW);
+        PinFactory::get(PIN_LED_MODE_SINGLE)->write(LOW);
+        PinFactory::get(PIN_LED_MODE_RHYTM)->write(HIGH); // off
     });
 
     states[STATE_MODE_PONG]->setNextState(states[STATE_MODE_DUAL]);
@@ -143,42 +143,42 @@ void StateFactory::initialize()
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_TAPE_STUDIO)->write(LOW);
-        PinFactory::get(PIN_LED_TAPE_CHEAP)->write(LOW);
-        PinFactory::get(PIN_LED_TAPE_TUBE)->write(LOW);
-        PinFactory::get(PIN_LED_TAPE_MASTER)->write(LOW);
+        PinFactory::get(PIN_LED_TAPE_STUDIO)->write(HIGH); // off
+        PinFactory::get(PIN_LED_TAPE_CHEAP)->write(HIGH); // off
+        PinFactory::get(PIN_LED_TAPE_TUBE)->write(HIGH); // off
+        PinFactory::get(PIN_LED_TAPE_MASTER)->write(HIGH); // off
     });
 
     states[STATE_STYLE_TAPE_STUDIO] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_TAPE_STUDIO)->write(HIGH);
-        PinFactory::get(PIN_LED_TAPE_MASTER)->write(LOW);
+        PinFactory::get(PIN_LED_TAPE_STUDIO)->write(LOW);
+        PinFactory::get(PIN_LED_TAPE_MASTER)->write(HIGH); // off
     });
 
     states[STATE_STYLE_TAPE_CHEAP] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_TAPE_STUDIO)->write(LOW);
-        PinFactory::get(PIN_LED_TAPE_CHEAP)->write(HIGH);
+        PinFactory::get(PIN_LED_TAPE_STUDIO)->write(HIGH); // off
+        PinFactory::get(PIN_LED_TAPE_CHEAP)->write(LOW);
     });
 
     states[STATE_STYLE_TAPE_TUBE] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_TAPE_CHEAP)->write(LOW);
-        PinFactory::get(PIN_LED_TAPE_TUBE)->write(HIGH);
+        PinFactory::get(PIN_LED_TAPE_CHEAP)->write(HIGH); // off
+        PinFactory::get(PIN_LED_TAPE_TUBE)->write(LOW);
     });
 
     states[STATE_STYLE_TAPE_MASTER] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_TAPE_TUBE)->write(LOW);
-        PinFactory::get(PIN_LED_TAPE_MASTER)->write(HIGH);
+        PinFactory::get(PIN_LED_TAPE_TUBE)->write(HIGH); // off
+        PinFactory::get(PIN_LED_TAPE_MASTER)->write(LOW);
     });
 
     states[STATE_STYLE_TAPE_DISABLED]->setNextState(states[STATE_STYLE_TAPE_STUDIO]);
@@ -192,42 +192,42 @@ void StateFactory::initialize()
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_ECHO_PLEX)->write(LOW);
-        PinFactory::get(PIN_LED_ECHO_SPACE)->write(LOW);
-        PinFactory::get(PIN_LED_ECHO_TEL_RAY)->write(LOW);
-        PinFactory::get(PIN_LED_ECHO_BINSONETTE)->write(LOW);
+        PinFactory::get(PIN_LED_ECHO_PLEX)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ECHO_SPACE)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ECHO_TEL_RAY)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ECHO_BINSONETTE)->write(HIGH); // off
     });
 
     states[STATE_STYLE_ECHO_PLEX] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_ECHO_PLEX)->write(HIGH);
-        PinFactory::get(PIN_LED_ECHO_BINSONETTE)->write(LOW);
+        PinFactory::get(PIN_LED_ECHO_PLEX)->write(LOW);
+        PinFactory::get(PIN_LED_ECHO_BINSONETTE)->write(HIGH); // off
     });
 
     states[STATE_STYLE_ECHO_SPACE] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_ECHO_PLEX)->write(LOW);
-        PinFactory::get(PIN_LED_ECHO_SPACE)->write(HIGH);
+        PinFactory::get(PIN_LED_ECHO_PLEX)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ECHO_SPACE)->write(LOW);
     });
 
     states[STATE_STYLE_ECHO_TEL_RAY] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_ECHO_SPACE)->write(LOW);
-        PinFactory::get(PIN_LED_ECHO_TEL_RAY)->write(HIGH);
+        PinFactory::get(PIN_LED_ECHO_SPACE)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ECHO_TEL_RAY)->write(LOW);
     });
 
     states[STATE_STYLE_ECHO_BINSONETTE] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_ECHO_TEL_RAY)->write(LOW);
-        PinFactory::get(PIN_LED_ECHO_BINSONETTE)->write(HIGH);
+        PinFactory::get(PIN_LED_ECHO_TEL_RAY)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ECHO_BINSONETTE)->write(LOW);
     });
 
     states[STATE_STYLE_ECHO_DISABLED]->setNextState(states[STATE_STYLE_ECHO_PLEX]);
@@ -241,42 +241,42 @@ void StateFactory::initialize()
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_BBD_MEMORY_MAN)->write(LOW);
-        PinFactory::get(PIN_LED_BBD_ANALOG)->write(LOW);
-        PinFactory::get(PIN_LED_BBD_AM_RADIO)->write(LOW);
-        PinFactory::get(PIN_LED_BBD_DM_2)->write(LOW);
+        PinFactory::get(PIN_LED_BBD_MEMORY_MAN)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BBD_ANALOG)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BBD_AM_RADIO)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BBD_DM_2)->write(HIGH); // off
     });
 
     states[STATE_STYLE_BBD_MEMORY_MAN] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_BBD_MEMORY_MAN)->write(HIGH);
-        PinFactory::get(PIN_LED_BBD_DM_2)->write(LOW);
+        PinFactory::get(PIN_LED_BBD_MEMORY_MAN)->write(LOW);
+        PinFactory::get(PIN_LED_BBD_DM_2)->write(HIGH); // off
     });
 
     states[STATE_STYLE_BBD_ANALOG] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_BBD_MEMORY_MAN)->write(LOW);
-        PinFactory::get(PIN_LED_BBD_ANALOG)->write(HIGH);
+        PinFactory::get(PIN_LED_BBD_MEMORY_MAN)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BBD_ANALOG)->write(LOW);
     });
 
     states[STATE_STYLE_BBD_AM_RADIO] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_BBD_ANALOG)->write(LOW);
-        PinFactory::get(PIN_LED_BBD_AM_RADIO)->write(HIGH);
+        PinFactory::get(PIN_LED_BBD_ANALOG)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BBD_AM_RADIO)->write(LOW);
     });
 
     states[STATE_STYLE_BBD_DM_2] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_BBD_AM_RADIO)->write(LOW);
-        PinFactory::get(PIN_LED_BBD_DM_2)->write(HIGH);
+        PinFactory::get(PIN_LED_BBD_AM_RADIO)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BBD_DM_2)->write(LOW);
     });
 
     states[STATE_STYLE_BBD_DISABLED]->setNextState(states[STATE_STYLE_BBD_MEMORY_MAN]);
@@ -290,42 +290,42 @@ void StateFactory::initialize()
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_BIAS_TRANSMITTER)->write(LOW);
-        PinFactory::get(PIN_LED_BIAS_DISTORTED)->write(LOW);
-        PinFactory::get(PIN_LED_BIAS_SATURATED)->write(LOW);
-        PinFactory::get(PIN_LED_BIAS_QUEEKED)->write(LOW);
+        PinFactory::get(PIN_LED_BIAS_TRANSMITTER)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BIAS_DISTORTED)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BIAS_SATURATED)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BIAS_QUEEKED)->write(HIGH); // off
     });
 
     states[STATE_STYLE_BIAS_TRANSMITTER] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_BIAS_TRANSMITTER)->write(HIGH);
-        PinFactory::get(PIN_LED_BIAS_QUEEKED)->write(LOW);
+        PinFactory::get(PIN_LED_BIAS_TRANSMITTER)->write(LOW);
+        PinFactory::get(PIN_LED_BIAS_QUEEKED)->write(HIGH); // off
     });
 
     states[STATE_STYLE_BIAS_DISTORTED] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_BIAS_TRANSMITTER)->write(LOW);
-        PinFactory::get(PIN_LED_BIAS_DISTORTED)->write(HIGH);
+        PinFactory::get(PIN_LED_BIAS_TRANSMITTER)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BIAS_DISTORTED)->write(LOW);
     });
 
     states[STATE_STYLE_BIAS_SATURATED] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_BIAS_DISTORTED)->write(LOW);
-        PinFactory::get(PIN_LED_BIAS_SATURATED)->write(HIGH);
+        PinFactory::get(PIN_LED_BIAS_DISTORTED)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BIAS_SATURATED)->write(LOW);
     });
 
     states[STATE_STYLE_BIAS_QUEEKED] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_BIAS_SATURATED)->write(LOW);
-        PinFactory::get(PIN_LED_BIAS_QUEEKED)->write(HIGH);
+        PinFactory::get(PIN_LED_BIAS_SATURATED)->write(HIGH); // off
+        PinFactory::get(PIN_LED_BIAS_QUEEKED)->write(LOW);
     });
 
     states[STATE_STYLE_BIAS_DISABLED]->setNextState(states[STATE_STYLE_BIAS_TRANSMITTER]);
@@ -339,42 +339,42 @@ void StateFactory::initialize()
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_CHORUS_CE_1)->write(LOW);
-        PinFactory::get(PIN_LED_CHORUS_ANALOG)->write(LOW);
-        PinFactory::get(PIN_LED_CHORUS_VIBRATO)->write(LOW);
-        PinFactory::get(PIN_LED_CHORUS_DIGITAL)->write(LOW);
+        PinFactory::get(PIN_LED_CHORUS_CE_1)->write(HIGH); // off
+        PinFactory::get(PIN_LED_CHORUS_ANALOG)->write(HIGH); // off
+        PinFactory::get(PIN_LED_CHORUS_VIBRATO)->write(HIGH); // off
+        PinFactory::get(PIN_LED_CHORUS_DIGITAL)->write(HIGH); // off
     });
 
     states[STATE_STYLE_CHORUS_CE_1] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_CHORUS_CE_1)->write(HIGH);
-        PinFactory::get(PIN_LED_CHORUS_DIGITAL)->write(LOW);
+        PinFactory::get(PIN_LED_CHORUS_CE_1)->write(LOW);
+        PinFactory::get(PIN_LED_CHORUS_DIGITAL)->write(HIGH); // off
     });
 
     states[STATE_STYLE_CHORUS_ANALOG] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_CHORUS_CE_1)->write(LOW);
-        PinFactory::get(PIN_LED_CHORUS_ANALOG)->write(HIGH);
+        PinFactory::get(PIN_LED_CHORUS_CE_1)->write(HIGH); // off
+        PinFactory::get(PIN_LED_CHORUS_ANALOG)->write(LOW);
     });
 
     states[STATE_STYLE_CHORUS_VIBRATO] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_CHORUS_ANALOG)->write(LOW);
-        PinFactory::get(PIN_LED_CHORUS_VIBRATO)->write(HIGH);
+        PinFactory::get(PIN_LED_CHORUS_ANALOG)->write(HIGH); // off
+        PinFactory::get(PIN_LED_CHORUS_VIBRATO)->write(LOW);
     });
 
     states[STATE_STYLE_CHORUS_DIGITAL] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_CHORUS_VIBRATO)->write(LOW);
-        PinFactory::get(PIN_LED_CHORUS_DIGITAL)->write(HIGH);
+        PinFactory::get(PIN_LED_CHORUS_VIBRATO)->write(HIGH); // off
+        PinFactory::get(PIN_LED_CHORUS_DIGITAL)->write(LOW);
     });
 
     states[STATE_STYLE_CHORUS_DISABLED]->setNextState(states[STATE_STYLE_CHORUS_CE_1]);
@@ -388,42 +388,42 @@ void StateFactory::initialize()
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_ATMO_AMBIENT)->write(LOW);
-        PinFactory::get(PIN_LED_ATMO_VERBED)->write(LOW);
-        PinFactory::get(PIN_LED_ATMO_DIFFUSED)->write(LOW);
-        PinFactory::get(PIN_LED_ATMO_SPLATTERED)->write(LOW);
+        PinFactory::get(PIN_LED_ATMO_AMBIENT)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ATMO_VERBED)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ATMO_DIFFUSED)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ATMO_SPLATTERED)->write(HIGH); // off
     });
 
     states[STATE_STYLE_ATMO_AMBIENT] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_ATMO_AMBIENT)->write(HIGH);
-        PinFactory::get(PIN_LED_ATMO_SPLATTERED)->write(LOW);
+        PinFactory::get(PIN_LED_ATMO_AMBIENT)->write(LOW);
+        PinFactory::get(PIN_LED_ATMO_SPLATTERED)->write(HIGH); // off
     });
 
     states[STATE_STYLE_ATMO_VERBED] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_ATMO_AMBIENT)->write(LOW);
-        PinFactory::get(PIN_LED_ATMO_VERBED)->write(HIGH);
+        PinFactory::get(PIN_LED_ATMO_AMBIENT)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ATMO_VERBED)->write(LOW);
     });
 
     states[STATE_STYLE_ATMO_DIFFUSED] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_ATMO_VERBED)->write(LOW);
-        PinFactory::get(PIN_LED_ATMO_DIFFUSED)->write(HIGH);
+        PinFactory::get(PIN_LED_ATMO_VERBED)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ATMO_DIFFUSED)->write(LOW);
     });
 
     states[STATE_STYLE_ATMO_SPLATTERED] = new State([&]() {
         // midi
 
         // leds
-        PinFactory::get(PIN_LED_ATMO_DIFFUSED)->write(LOW);
-        PinFactory::get(PIN_LED_ATMO_SPLATTERED)->write(HIGH);
+        PinFactory::get(PIN_LED_ATMO_DIFFUSED)->write(HIGH); // off
+        PinFactory::get(PIN_LED_ATMO_SPLATTERED)->write(LOW);
     });
 
     states[STATE_STYLE_ATMO_DISABLED]->setNextState(states[STATE_STYLE_ATMO_AMBIENT]);
