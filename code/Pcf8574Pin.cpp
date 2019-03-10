@@ -19,3 +19,13 @@ void Pcf8574Pin::attachInterrupt(void (*userFunc)(void), uint8_t interruptMode)
 {
     expander->attachInterrupt(getAddress(), userFunc, interruptMode);
 }
+
+void Pcf8574Pin::on()
+{
+    write(LOW);
+}
+
+void Pcf8574Pin::off()
+{
+    write(HIGH);
+}

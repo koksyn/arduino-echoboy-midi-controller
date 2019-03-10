@@ -14,7 +14,7 @@ void setup() {
   StateFactory::initialize();
   MachineFactory::initialize();
 
-  //PinFactory::runIntegratedCircuits();
+  PinFactory::runIntegratedCircuits();
   InterruptionRouter::enableInterruptions();
 
   Serial.println("Setup ready");

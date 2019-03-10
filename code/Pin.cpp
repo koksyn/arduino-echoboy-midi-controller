@@ -7,12 +7,12 @@ uint8_t Pin::getAddress()
 	return address;
 }
 
-void Pin::writeHigh()
+void Pin::on()
 {
 	write(HIGH);
 }
 
-void Pin::writeLow()
+void Pin::off()
 {
 	write(LOW);
 }
