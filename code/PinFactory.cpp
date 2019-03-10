@@ -37,8 +37,8 @@ void PinFactory::initialize()
     pins[PIN_KNOB_ECHO_2_TIME] = (Pin*) new Mcp3008Pin(7, INPUT, analogDigitalConverter);
 
     // ARDUINO Digital
-    pins[PIN_BUTTON_DIP_MIDI_4] = (Pin*) new ArduinoDigitalPin(2, INPUT_PULLUP);
-    pins[PIN_INT_FROM_PCF] = (Pin*) new ArduinoDigitalPin(3, INPUT);
+    pins[PIN_INT_FROM_PCF] = (Pin*) new ArduinoDigitalPin(2, INPUT_PULLUP);
+    pins[PIN_INT_FROM_PCF_2] = (Pin*) new ArduinoDigitalPin(3, INPUT_PULLUP);
     pins[PIN_LED_MIDI_ALL] = (Pin*) new ArduinoDigitalPin(4, OUTPUT);
     pins[PIN_LED_BYPASS] = (Pin*) new ArduinoDigitalPin(5, OUTPUT);
     pins[PIN_LED_SYNC_TIME] = (Pin*) new ArduinoDigitalPin(6, OUTPUT);

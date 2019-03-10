@@ -19,9 +19,6 @@ void ButtonHandler::handle(uint8_t code)
         case PIN_BUTTON_DIP_MIDI_3:
             // todo change midi channel bit ( 0 0 X 0 )
             break;
-        case PIN_BUTTON_DIP_MIDI_4:
-            // todo change midi channel bit ( 0 0 0 X )
-            break;
 
         // STYLE
         case PIN_BUTTON_STYLE_TAPE:
