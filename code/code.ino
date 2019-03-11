@@ -21,10 +21,10 @@ void setup() {
   PinFactory::initialize();
   PinFactory::runIntegratedCircuits();
 
-  StateFactory::initialize();
-  MachineFactory::initialize();
+  //StateFactory::initialize();
+  //MachineFactory::initialize();
 
-  InterruptionRouter::enableInterruptions();
+  //InterruptionRouter::enableInterruptions();
 
   Serial.println("Setup ready");
 }
@@ -35,9 +35,16 @@ void loop() {
 
   //Serial.println("OK");
 
-  //delay(50);
+  // Arduino Analog + MCP3008 + Arduino Digital
+  for(uint8_t i=0; i<=12; i++) {
+      Serial.print(PinFactory::get(i)->read());
+      Serial.print(' ');
+  }
 
-  ButtonHandler::handle(buttonPressed);
+  Serial.println();
+  delay(50);
+
+  //ButtonHandler::handle(buttonPressed);
 
   // reset after handling
   if(buttonPressed > 0) {

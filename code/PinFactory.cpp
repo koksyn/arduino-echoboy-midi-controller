@@ -129,6 +129,7 @@ void PinFactory::runIntegratedCircuits()
 
     analogDigitalConverter->begin();
 
+/*
     buttonExpander->begin(0x38);
     buttonExpander2->begin(0x39);
 
@@ -140,5 +141,5 @@ void PinFactory::runIntegratedCircuits()
     // PCF 1,2,3,4,5,6
     for(uint8_t i=PIN_BUTTON_DIP_MIDI_3; i<PINS; i++) {
         pins[i]->applyMode();
-    }
+    }*/
 }
