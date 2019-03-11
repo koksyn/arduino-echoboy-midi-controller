@@ -43,12 +43,15 @@ void ButtonHandler::handle(uint8_t code)
             if(MachineFactory::get(MACHINE_STYLE_ECHO)->equalsState(StateFactory::get(STATE_STYLE_ECHO_DISABLED))) {
                 // disable all other Style machines
                 MachineFactory::get(MACHINE_STYLE_TAPE)->setState(StateFactory::get(STATE_STYLE_TAPE_DISABLED));
+                MachineFactory::get(MACHINE_STYLE_TAPE)->executeCurrentState();
+
                 MachineFactory::get(MACHINE_STYLE_BBD)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_BIAS)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_CHORUS)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_ATMO)->applyInitialState();
                 // enable choosed
                 MachineFactory::get(MACHINE_STYLE_ECHO)->setState(StateFactory::get(STATE_STYLE_ECHO_PLEX));
+                MachineFactory::get(MACHINE_STYLE_ECHO)->executeCurrentState();
             }
             // was enabled
             else {
@@ -60,12 +63,15 @@ void ButtonHandler::handle(uint8_t code)
             if(MachineFactory::get(MACHINE_STYLE_BBD)->equalsState(StateFactory::get(STATE_STYLE_BBD_DISABLED))) {
                 // disable all other Style machines
                 MachineFactory::get(MACHINE_STYLE_TAPE)->setState(StateFactory::get(STATE_STYLE_TAPE_DISABLED));
+                MachineFactory::get(MACHINE_STYLE_TAPE)->executeCurrentState();
+
                 MachineFactory::get(MACHINE_STYLE_ECHO)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_BIAS)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_CHORUS)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_ATMO)->applyInitialState();
                 // enable choosed
                 MachineFactory::get(MACHINE_STYLE_BBD)->setState(StateFactory::get(STATE_STYLE_BBD_MEMORY_MAN));
+                MachineFactory::get(MACHINE_STYLE_BBD)->executeCurrentState();
             }
             // was enabled
             else {
@@ -77,12 +83,15 @@ void ButtonHandler::handle(uint8_t code)
             if(MachineFactory::get(MACHINE_STYLE_BIAS)->equalsState(StateFactory::get(STATE_STYLE_BIAS_DISABLED))) {
                 // disable all other Style machines
                 MachineFactory::get(MACHINE_STYLE_TAPE)->setState(StateFactory::get(STATE_STYLE_TAPE_DISABLED));
+                MachineFactory::get(MACHINE_STYLE_TAPE)->executeCurrentState();
+
                 MachineFactory::get(MACHINE_STYLE_ECHO)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_BBD)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_CHORUS)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_ATMO)->applyInitialState();
                 // enable choosed
                 MachineFactory::get(MACHINE_STYLE_BIAS)->setState(StateFactory::get(STATE_STYLE_BIAS_TRANSMITTER));
+                MachineFactory::get(MACHINE_STYLE_BIAS)->executeCurrentState();
             }
             // was enabled
             else {
@@ -94,12 +103,15 @@ void ButtonHandler::handle(uint8_t code)
             if(MachineFactory::get(MACHINE_STYLE_CHORUS)->equalsState(StateFactory::get(STATE_STYLE_CHORUS_DISABLED))) {
                 // disable all other Style machines
                 MachineFactory::get(MACHINE_STYLE_TAPE)->setState(StateFactory::get(STATE_STYLE_TAPE_DISABLED));
+                MachineFactory::get(MACHINE_STYLE_TAPE)->executeCurrentState();
+
                 MachineFactory::get(MACHINE_STYLE_ECHO)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_BBD)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_BIAS)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_ATMO)->applyInitialState();
                 // enable choosed
                 MachineFactory::get(MACHINE_STYLE_CHORUS)->setState(StateFactory::get(STATE_STYLE_CHORUS_CE_1));
+                MachineFactory::get(MACHINE_STYLE_CHORUS)->executeCurrentState();
             }
             // was enabled
             else {
@@ -111,12 +123,15 @@ void ButtonHandler::handle(uint8_t code)
             if(MachineFactory::get(MACHINE_STYLE_ATMO)->equalsState(StateFactory::get(STATE_STYLE_ATMO_DISABLED))) {
                 // disable all other Style machines
                 MachineFactory::get(MACHINE_STYLE_TAPE)->setState(StateFactory::get(STATE_STYLE_TAPE_DISABLED));
+                MachineFactory::get(MACHINE_STYLE_TAPE)->executeCurrentState();
+
                 MachineFactory::get(MACHINE_STYLE_ECHO)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_BBD)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_BIAS)->applyInitialState();
                 MachineFactory::get(MACHINE_STYLE_CHORUS)->applyInitialState();
                 // enable choosed
                 MachineFactory::get(MACHINE_STYLE_ATMO)->setState(StateFactory::get(STATE_STYLE_ATMO_AMBIENT));
+                MachineFactory::get(MACHINE_STYLE_ATMO)->executeCurrentState();
             }
                 // was enabled
             else {
