@@ -6,27 +6,39 @@
 
  #include <MIDI.h>
 
+#include <Wire.h>
+#include <hd44780.h>
+#include <hd44780ioClass/hd44780_I2Cexp.h>
+
  // Created and binds the MIDI interface to the default hardware Serial port
  //MIDI_CREATE_DEFAULT_INSTANCE();
 
-
+//
+hd44780_I2Cexp lcd;
 volatile uint8_t buttonPressed = 0;
 
 void setup() {
-  Serial.begin(9600);
-  while (!Serial);
+  //Serial.begin(9600);
+  //while (!Serial);
 
   //MIDI.begin(MIDI_CHANNEL_OMNI);  // Listen to all incoming messages
 
   PinFactory::initialize();
   PinFactory::runIntegratedCircuits();
 
-  //StateFactory::initialize();
-  //MachineFactory::initialize();
+  StateFactory::initialize();
+  MachineFactory::initialize();
 
-  //InterruptionRouter::enableInterruptions();
+  InterruptionRouter::enableInterruptions();
 
-  Serial.println("Setup ready");
+  //Serial.println("Setup ready");
+
+    //hd44780_I2Cexp *lcd = new hd44780_I2Cexp();
+    // initialize LCD with number of columns and rows:
+    lcd.begin(20, 4);
+
+    // Print a message to the LCD
+    lcd.print("OK");
 }
 
 void loop() {
@@ -37,18 +49,21 @@ void loop() {
 
   // Arduino Analog + MCP3008 + Arduino Digital
   for(uint8_t i=0; i<=12; i++) {
-      Serial.print(PinFactory::get(i)->read());
-      Serial.print(' ');
+      if(i==PIN_KNOB_INPUT) continue;
+
+      //Serial.print(PinFactory::get(i)->read());
+     // Serial.print(' ');
   }
 
-  Serial.println();
+  //Serial.println();
   delay(50);
 
-  //ButtonHandler::handle(buttonPressed);
+  ButtonHandler::handle(buttonPressed);
 
   // reset after handling
   if(buttonPressed > 0) {
-    //Serial.println(buttonPressed);
+    lcd.setCursor(0, 1);
+    lcd.print(buttonPressed);
     
     buttonPressed = 0;
   }
