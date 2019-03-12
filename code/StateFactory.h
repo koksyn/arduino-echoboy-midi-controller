@@ -2,8 +2,6 @@
 #define STATE_FACTORY_H
 
 #include "State.h"
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
 
 #define STATE_SYNC_TIME_DISABLED 0
 #define STATE_SYNC_TIME_ENABLED  1

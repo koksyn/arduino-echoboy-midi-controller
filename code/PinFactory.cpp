@@ -22,9 +22,9 @@ void PinFactory::initialize()
     // ARDUINO Analog for Knobs
     pins[PIN_KNOB_ECHO_1_TIME] = (Pin*) new ArduinoAnalogPin(A0, INPUT);
     pins[PIN_KNOB_OUTPUT] = (Pin*) new ArduinoAnalogPin(A1, INPUT);
-    pins[PIN_KNOB_INPUT] = (Pin*) new ArduinoAnalogPin(A2, INPUT);
-    pins[PIN_KNOB_HIGH_CUT] = (Pin*) new ArduinoAnalogPin(A4, INPUT);
-    pins[PIN_KNOB_LOW_CUT] = (Pin*) new ArduinoAnalogPin(A5, INPUT);
+    //pins[PIN_KNOB_INPUT] = (Pin*) new ArduinoAnalogPin(A2, INPUT);
+    pins[PIN_KNOB_HIGH_CUT] = (Pin*) new ArduinoAnalogPin(A2, INPUT);
+    pins[PIN_KNOB_LOW_CUT] = (Pin*) new ArduinoAnalogPin(A3, INPUT);
 
     // MCP3008 Analog for Knobs
     pins[PIN_KNOB_RHYTM_REPEATS] = (Pin*) new Mcp3008Pin(0, INPUT, analogDigitalConverter);
@@ -124,12 +124,13 @@ void PinFactory::runIntegratedCircuits()
 {
     // Arduino Analog + MCP3008 + Arduino Digital
     for(uint8_t i=0; i<PIN_BUTTON_DIP_MIDI_3; i++) {
+        if(i==PIN_KNOB_INPUT) continue;
+
         pins[i]->applyMode();
     }
 
     analogDigitalConverter->begin();
 
-/*
     buttonExpander->begin(0x38);
     buttonExpander2->begin(0x39);
 
@@ -141,5 +142,5 @@ void PinFactory::runIntegratedCircuits()
     // PCF 1,2,3,4,5,6
     for(uint8_t i=PIN_BUTTON_DIP_MIDI_3; i<PINS; i++) {
         pins[i]->applyMode();
-    }*/
+    }
 }
