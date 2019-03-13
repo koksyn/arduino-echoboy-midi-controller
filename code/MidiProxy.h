@@ -10,7 +10,7 @@ private:
     static uint8_t channel;
 public:
     static void initialize();
-    static void setChannel(uint8_t channel);
+    static void setChannel(uint8_t newChannel);
     // not implemented static void send();
 };
 

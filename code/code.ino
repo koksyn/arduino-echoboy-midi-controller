@@ -1,4 +1,5 @@
 #include "MidiProxy.h"
+#include "KnobManager.h"
 #include "PinFactory.h"
 #include "StateFactory.h"
 #include "MachineFactory.h"
@@ -8,6 +9,7 @@
 #include <Wire.h>
 #include <hd44780.h>
 #include <hd44780ioClass/hd44780_I2Cexp.h>
+//https://github.com/FortySevenEffects/arduino_midi_library/blob/master/src/MIDI.h
 
  // Created and binds the MIDI interface to the default hardware Serial port
  //
@@ -15,7 +17,6 @@
  * Co brakuje:
  *
  * - jakie sygnały midi trzeba wyslac? i jaki typ?
- * - odczyt potencjometrów aby wysyłać sygnały midi
  * - wyświetlanie czasów na ekranie i wciśniętych przycisków (stany) - czyli ekran musi być osobnym obiektem, aby tym sterował (blokował na sekundy)
  */
 
@@ -35,6 +36,8 @@ void setup() {
   StateFactory::initialize();
   MachineFactory::initialize();
 
+  KnobManager::initialize();
+
   InterruptionRouter::enableInterruptions();
 
   // initialize LCD with number of columns and rows:
@@ -46,19 +49,9 @@ void setup() {
 
 void loop() {
   // Send note 42 with velocity 127 on channel 1
-     //MIDI.sendNoteOn(42, 127, 1);
+  // MIDI.sendNoteOn(42, 127, 1);
 
-  // Arduino Analog + MCP3008 + Arduino Digital
-  for(uint8_t i=0; i<=12; i++) {
-      if(i==PIN_KNOB_INPUT) continue;
-
-      //Serial.print(PinFactory::get(i)->read());
-     // Serial.print(' ');
-  }
-
-  //Serial.println();
-  delay(50);
-
+  KnobManager::updateAllKnobs();
   ButtonHandler::handle(buttonPressed);
 
   // reset after handling

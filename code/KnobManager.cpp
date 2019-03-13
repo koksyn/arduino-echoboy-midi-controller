@@ -79,7 +79,7 @@ void KnobManager::updateAllKnobs()
 // returns true if set was success
 boolean KnobManager::readKnobAndSet(uint8_t knobPinNumber)
 {
-    uint8_t newValue = read(knobPinNumber);
+    uint8_t newValue = readKnob(knobPinNumber);
 
     // exceeding marginal value will allow to change lastValue of knob
     // this solution reduces electrical noise
@@ -93,7 +93,7 @@ boolean KnobManager::readKnobAndSet(uint8_t knobPinNumber)
     return false;
 }
 
-void KnobManager::readKnob(uint8_t knobPinNumber)
+uint8_t KnobManager::readKnob(uint8_t knobPinNumber)
 {
     uint8_t signal = PinFactory::get(knobPinNumber)->read();
 
@@ -101,7 +101,7 @@ void KnobManager::readKnob(uint8_t knobPinNumber)
     return map(signal, 0, 255, 0, 127);
 }
 
-void KnobManager::knobValueExceededMargin(uint8_t knobPinNumber, uint8_t newValue, uint8_t marginalValue)
+boolean KnobManager::knobValueExceededMargin(uint8_t knobPinNumber, uint8_t newValue, uint8_t marginalValue)
 {
     return valueNotBetween(
             newValue,
@@ -110,7 +110,7 @@ void KnobManager::knobValueExceededMargin(uint8_t knobPinNumber, uint8_t newValu
     );
 }
 
-void KnobManager::valueNotBetween(uint8_t value, uint8_t x, uint8_t y)
+boolean KnobManager::valueNotBetween(uint8_t value, uint8_t x, uint8_t y)
 {
     return (value < x) || (value > y);
 }

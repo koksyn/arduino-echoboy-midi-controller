@@ -1,18 +1,20 @@
 #include "MidiProxy.h"
 
+uint8_t MidiProxy::channel;
+
 void MidiProxy::initialize()
 {
     // Default instance
     MIDI_CREATE_DEFAULT_INSTANCE();
 
     // Default channel
-    this->channel = MIDI_DEFAULT_CHANNEL;
+    channel = MIDI_DEFAULT_CHANNEL;
 
     // Listen to all incoming messages
     MIDI.begin(MIDI_CHANNEL_OMNI);
 }
 
-void MidiProxy::setChannel(uint8_t channel)
+void MidiProxy::setChannel(uint8_t newChannel)
 {
-    this->channel = channel;
+    channel = newChannel;
 }
