@@ -97,7 +97,7 @@ void KnobManager::readKnob(uint8_t knobPinNumber)
 {
     uint8_t signal = PinFactory::get(knobPinNumber)->read();
 
-    // map to midi
+    // map to midi values
     return map(signal, 0, 255, 0, 127);
 }
 
