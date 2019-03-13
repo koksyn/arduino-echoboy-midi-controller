@@ -1,11 +1,13 @@
 #include "LcdManager.h"
 
-hd44780_I2Cexp* LcdManager::lcd = new hd44780_I2Cexp();
+hd44780_I2Cexp* LcdManager::lcd;
 
-void LcdManager::initialize()
+void LcdManager::initialize(hd44780_I2Cexp* lcdInstance)
 {
+    lcd = lcdInstance;
+
     // initialize LCD with number of columns and rows
-    lcd->begin(20, 4);
+    lcd->begin(16, 2);
 }
 
 void LcdManager::printFirstRow()
