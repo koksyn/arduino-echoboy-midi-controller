@@ -11,7 +11,7 @@ class LcdManager {
 private:
     static hd44780_I2Cexp *lcd;
 public:
-    static void initialize();
+    static void initialize(hd44780_I2Cexp* lcdInstance);
     static void printFirstRow();
     static void printSecondRow();
 };
