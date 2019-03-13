@@ -6,14 +6,6 @@ State* StateFactory::states[STATES];
 
 void StateFactory::initialize()
 {
-    //LiquidCrystal_I2C *lcd = new LiquidCrystal_I2C(0x27, 16, 2);
-
-    //lcd->init();                      // initialize the lcd
-
-    // Print a message to the LCD.
-    //lcd->backlight();
-    //lcd->print("Hello, world!");
-
     // ---------- SYNC TIME ----------
     states[STATE_SYNC_TIME_DISABLED] = new State([&]() {
         // midi
