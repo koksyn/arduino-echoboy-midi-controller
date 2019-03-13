@@ -1,23 +1,27 @@
 #include "LcdManager.h"
 
-hd44780_I2Cexp* LcdManager::lcd;
+LiquidCrystal_I2C* LcdManager::lcd = new LiquidCrystal_I2C(0x27,16,2);
 
-void LcdManager::initialize(hd44780_I2Cexp* lcdInstance)
+void LcdManager::initialize()
 {
-    lcd = lcdInstance;
-
-    // initialize LCD with number of columns and rows
-    lcd->begin(16, 2);
+  lcd->init();
+  lcd->backlight();
 }
 
 void LcdManager::printFirstRow()
 {
-    lcd->home();
-    lcd->print(1);
+  lcd->setCursor(0,0);
+  lcd->print(987654321);
 }
 
 void LcdManager::printSecondRow()
 {
-    lcd->setCursor(0, 1);
-    lcd->print(2);
+  lcd->setCursor(0,1);
+  lcd->print(1234123);
+}
+
+void LcdManager::print(int cos)
+{
+  //lcd->clear();
+  //lcd->print(cos);
 }
