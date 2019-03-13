@@ -13,9 +13,9 @@ private:
     static uint8_t lastKnobValue[KNOBS];
 
     static boolean readKnobAndSet(uint8_t knobPinNumber);
-    static void readKnob(uint8_t knobPinNumber);
-    static void knobValueExceededMargin(uint8_t knobPinNumber, uint8_t newValue, uint8_t marginalValue);
-    static void valueNotBetween(uint8_t value, uint8_t x, uint8_t y);
+    static uint8_t readKnob(uint8_t knobPinNumber);
+    static boolean knobValueExceededMargin(uint8_t knobPinNumber, uint8_t newValue, uint8_t marginalValue);
+    static boolean valueNotBetween(uint8_t value, uint8_t x, uint8_t y);
 public:
     static void initialize();
     static void updateAllKnobs();
