@@ -23,13 +23,13 @@ void InterruptionRouter::enableInterruptions()
     Pin* interruptForPCF2 = PinFactory::get(PIN_INT_FROM_PCF_2);
     interruptForPCF2->write(HIGH);
 
-//    // --- enable interrupts for each dedicated PCF ---
-//    PinFactory::getButtonExpander()
-//            ->enableInterrupt(interruptForPCF->getAddress(), onExpanderInterrupt);
+    // --- enable interrupts for each dedicated PCF ---
+    PinFactory::getButtonExpander()
+            ->enableInterrupt(interruptForPCF->getAddress(), onExpanderInterrupt);
 
     PinFactory::getButtonExpander2()
             ->enableInterrupt(interruptForPCF2->getAddress(), onExpander2Interrupt);
-/*
+
     // --- bind PCF pins to callbacks (using lambdas) ---
 
     // ARDUINO Digital
@@ -97,5 +97,5 @@ void InterruptionRouter::enableInterruptions()
 
     PinFactory::get(PIN_BUTTON_BYPASS)->attachInterrupt([&]() {
         buttonPressed = PIN_BUTTON_BYPASS;
-    }, FALLING);*/
+    }, FALLING);
 }

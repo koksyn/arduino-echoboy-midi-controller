@@ -1,9 +1,9 @@
 #include "KnobManager.h"
 
-uint8_t KnobManager::lastKnobValue[KNOBS];
+int KnobManager::lastKnobValue[KNOBS] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 void KnobManager::initialize()
-{
+{ 
     lastKnobValue[PIN_KNOB_ECHO_1_TIME] = readKnob(PIN_KNOB_ECHO_1_TIME);
     lastKnobValue[PIN_KNOB_ECHO_2_TIME] = readKnob(PIN_KNOB_ECHO_2_TIME);
     lastKnobValue[PIN_KNOB_FEEDBACK] = readKnob(PIN_KNOB_FEEDBACK);
@@ -26,19 +26,20 @@ void KnobManager::updateAllKnobs()
 
         // check that timing of Echo1 & Echo2 is in SYNC
         if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
-            lastKnobValue[PIN_KNOB_ECHO_2_TIME] = lastKnobValue[PIN_KNOB_ECHO_1_TIME];
+            //lastKnobValue[PIN_KNOB_ECHO_2_TIME] = lastKnobValue[PIN_KNOB_ECHO_1_TIME];
 
             // send midi 2
             // lcd update 2
         }
     }
+    /*
     if(readKnobAndSet(PIN_KNOB_ECHO_2_TIME)) {
         // send midi 2
         // lcd update 2
 
         // check that timing of Echo1 & Echo2 is in SYNC
         if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
-            lastKnobValue[PIN_KNOB_ECHO_1_TIME] = lastKnobValue[PIN_KNOB_ECHO_2_TIME];
+            //lastKnobValue[PIN_KNOB_ECHO_1_TIME] = lastKnobValue[PIN_KNOB_ECHO_2_TIME];
 
             // send midi 1
             // lcd update 1
@@ -73,11 +74,11 @@ void KnobManager::updateAllKnobs()
     }
     if(readKnobAndSet(PIN_KNOB_RHYTM_DECAY)) {
         // send midi
-    }
+    }*/
 }
 
 // returns true if set was success
-boolean KnobManager::readKnobAndSet(uint8_t knobPinNumber)
+boolean KnobManager::readKnobAndSet(int knobPinNumber)
 {
     uint8_t newValue = readKnob(knobPinNumber);
 
@@ -86,8 +87,11 @@ boolean KnobManager::readKnobAndSet(uint8_t knobPinNumber)
     boolean allowedToSet = knobValueExceededMargin(knobPinNumber, newValue, 3);
 
     if(allowedToSet) {
-        lastKnobValue[knobPinNumber] = newValue;
-        return true;
+         int x = 12121212;
+         int y = 1313131313;
+        LcdManager::print(0);
+        //lastKnobValue[PIN_KNOB_FEEL] = 0;
+        //return true;
     }
 
     return false;

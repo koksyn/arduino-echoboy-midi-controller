@@ -7,12 +7,10 @@
 #include "ButtonHandler.h"
 #include "LcdManager.h"
 
-hd44780_I2Cexp lcd(0x27);
-
 volatile uint8_t buttonPressed = 0;
 
 void setup() {
-  //MidiProxy::initialize();
+  MidiProxy::initialize();
 
   PinFactory::initialize();
   PinFactory::runIntegratedCircuits();
@@ -20,19 +18,21 @@ void setup() {
   StateFactory::initialize();
   MachineFactory::initialize();
   
-  //KnobManager::initialize();
+  KnobManager::initialize();
   
-  //InterruptionRouter::enableInterruptions();
+  InterruptionRouter::enableInterruptions();
 
-  //LcdManager::initialize(&lcd);
-  //LcdManager::printFirstRow();
-  //LcdManager::printSecondRow();
+  LcdManager::initialize();
+  LcdManager::printFirstRow();
+  LcdManager::printSecondRow();
+
+   KnobManager::updateAllKnobs();
 }
 
 void loop() {
-  //KnobManager::updateAllKnobs();
+ 
 
-  //ButtonHandler::handle(buttonPressed);
+  ButtonHandler::handle(buttonPressed);
 
   // reset after handling
   if(buttonPressed > 0) {
