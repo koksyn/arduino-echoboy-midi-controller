@@ -18,7 +18,6 @@ void LcdManager::render()
   
   lcd->setCursor(0,0);
   lcd->print(topLine);
-  
   lcd->setCursor(0,1);
   lcd->print(bottomLine);
 }
@@ -42,12 +41,14 @@ void LcdManager::clearTop()
 void LcdManager::clearBottom()
 {
   fillBottomByWhitespaces();
-  render();;
+  render();
 }
 
 void LcdManager::clearAll()
 {
-  memset(bottomLine, whitespace, CHARS_PER_LINE);
+  fillTopByWhitespaces();
+  fillBottomByWhitespaces();
+  render();
 }
 
 void LcdManager::printTop(uint8_t number)

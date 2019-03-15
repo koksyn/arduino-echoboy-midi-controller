@@ -92,6 +92,9 @@ int average = 0;
 // returns true if set was success
 boolean KnobManager::readKnobAndSet(int knobPinNumber)
 {
+// trzeba spróbować to (o wiele lepsze rozwiązanie bez lagów)
+    // https://github.com/dxinteractive/ResponsiveAnalogRead
+    
     index = knobReadIndex[knobPinNumber];
     
     // subtract the last reading
@@ -123,9 +126,9 @@ boolean KnobManager::readKnobAndSet(int knobPinNumber)
         knobReadAverage[knobPinNumber] = average;
         
         if(knobPinNumber == PIN_KNOB_ECHO_1_TIME)
-        LcdManager::printBottom(knobReadings[knobPinNumber][index]);
+        LcdManager::printTop(knobReadings[knobPinNumber][index]);
         
-        if(knobPinNumber == PIN_KNOB_ECHO_2_TIME)
+        if(knobPinNumber == PIN_KNOB_HIGH_CUT)
         LcdManager::printBottom(knobReadings[knobPinNumber][index]);
         
         return true;
