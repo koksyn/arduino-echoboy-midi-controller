@@ -23,19 +23,20 @@ void setup() {
   InterruptionRouter::enableInterruptions();
 
   LcdManager::initialize();
-  LcdManager::printFirstRow();
-  LcdManager::printSecondRow();
+  //LcdManager::printFirstRow();
+  //LcdManager::printSecondRow();
 
-   KnobManager::updateAllKnobs();
+  
+   
 }
 
 void loop() {
- 
-
+  KnobManager::updateAllKnobs();
   ButtonHandler::handle(buttonPressed);
-
+  
   // reset after handling
   if(buttonPressed > 0) {
+    //LcdManager::print(buttonPressed);
     buttonPressed = 0;
   }
 }

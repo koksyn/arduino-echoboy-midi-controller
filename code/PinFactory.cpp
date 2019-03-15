@@ -20,8 +20,8 @@ PCF8574* PinFactory::ledExpander4 = new PCF8574();
 void PinFactory::initialize()
 {
     // ARDUINO Analog for Knobs
-    pins[PIN_KNOB_ECHO_1_TIME] = (Pin*) new ArduinoAnalogPin(A0, INPUT);
-    pins[PIN_KNOB_OUTPUT] = (Pin*) new ArduinoAnalogPin(A1, INPUT);
+    pins[PIN_KNOB_ECHO_1_TIME] = (Pin*) new ArduinoAnalogPin(A1, INPUT);
+    pins[PIN_KNOB_OUTPUT] = (Pin*) new ArduinoAnalogPin(A0, INPUT);
     //pins[PIN_KNOB_INPUT] = (Pin*) new ArduinoAnalogPin(A2, INPUT);
     pins[PIN_KNOB_HIGH_CUT] = (Pin*) new ArduinoAnalogPin(A2, INPUT);
     pins[PIN_KNOB_LOW_CUT] = (Pin*) new ArduinoAnalogPin(A3, INPUT);

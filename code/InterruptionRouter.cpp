@@ -24,11 +24,13 @@ void InterruptionRouter::enableInterruptions()
     interruptForPCF2->write(HIGH);
 
     // --- enable interrupts for each dedicated PCF ---
-    PinFactory::getButtonExpander()
-            ->enableInterrupt(interruptForPCF->getAddress(), onExpanderInterrupt);
+   /* PinFactory::getButtonExpander()
+            ->enableInterrupt(interruptForPCF->getAddress(), onExpanderInterrupt);*/
 
-    PinFactory::getButtonExpander2()
-            ->enableInterrupt(interruptForPCF2->getAddress(), onExpander2Interrupt);
+   attachInterrupt(digitalPinToInterrupt(interruptForPCF->getAddress()), onExpanderInterrupt, FALLING);
+attachInterrupt(digitalPinToInterrupt(interruptForPCF2->getAddress()), onExpander2Interrupt, FALLING);
+   /* PinFactory::getButtonExpander2()
+            ->enableInterrupt(interruptForPCF2->getAddress(), onExpander2Interrupt);*/
 
     // --- bind PCF pins to callbacks (using lambdas) ---
 
