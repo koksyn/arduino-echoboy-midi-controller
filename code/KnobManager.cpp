@@ -42,7 +42,6 @@ void KnobManager::updateAllKnobs()
             // lcd update 2
         }
     }
-    /*
     if(readKnobAndSet(PIN_KNOB_ECHO_2_TIME)) {
         // send midi 2
         // lcd update 2
@@ -54,8 +53,7 @@ void KnobManager::updateAllKnobs()
             // send midi 1
             // lcd update 1
         }
-    }*/
-    /*
+    }
     if(readKnobAndSet(PIN_KNOB_FEEDBACK)) {
         // send midi
     }
@@ -85,10 +83,9 @@ void KnobManager::updateAllKnobs()
     }
     if(readKnobAndSet(PIN_KNOB_RHYTM_DECAY)) {
         // send midi
-    }*/
+    }
 }
 
-boolean ch = false;
 int index = 0;
 int average = 0;
 
@@ -120,15 +117,19 @@ boolean KnobManager::readKnobAndSet(int knobPinNumber)
     boolean allowedToSet = average != knobReadAverage[knobPinNumber];
 
     // delay in between reads for stability
-    delay(5);
+    delay(1);
 
     if(allowedToSet) {
         knobReadAverage[knobPinNumber] = average;
-        LcdManager::print(knobReadings[knobPinNumber][index]);
+        
+        if(knobPinNumber == PIN_KNOB_ECHO_1_TIME)
+        LcdManager::printBottom(knobReadings[knobPinNumber][index]);
+        
+        if(knobPinNumber == PIN_KNOB_ECHO_2_TIME)
+        LcdManager::printBottom(knobReadings[knobPinNumber][index]);
+        
         return true;
     }
-    
-    LcdManager::print2("Nie zmienilo sie");
     return false;
 }
 

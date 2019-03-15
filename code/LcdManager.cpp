@@ -1,6 +1,10 @@
 #include "LcdManager.h"
 
-LiquidCrystal_I2C* LcdManager::lcd = new LiquidCrystal_I2C(0x27,16,2);
+LiquidCrystal_I2C* LcdManager::lcd = new LiquidCrystal_I2C(0x27, CHARS_PER_LINE, 2);
+uint8_t LcdManager::lineIndex = 0;
+const char LcdManager::whitespace = ' ';
+char LcdManager::topLine[CHARS_PER_LINE];
+char LcdManager::bottomLine[CHARS_PER_LINE];
 
 void LcdManager::initialize()
 {
@@ -8,27 +12,64 @@ void LcdManager::initialize()
   lcd->backlight();
 }
 
-void LcdManager::printFirstRow()
-{
-  lcd->setCursor(0,0);
-  lcd->print(987654321);
-}
-
-void LcdManager::printSecondRow()
-{
-  lcd->setCursor(0,1);
-  lcd->print(1234123);
-}
-
-void LcdManager::print(uint8_t cos)
+void LcdManager::render()
 {
   lcd->clear();
+  
   lcd->setCursor(0,0);
-  lcd->print(cos);
+  lcd->print(topLine);
+  
+  lcd->setCursor(0,1);
+  lcd->print(bottomLine);
 }
 
-void LcdManager::print2(const String &s)
+void LcdManager::fillTopByWhitespaces()
 {
-  lcd->setCursor(0,1);
-  lcd->print(s);
+  memset(topLine, whitespace, CHARS_PER_LINE);
+}
+
+void LcdManager::fillBottomByWhitespaces()
+{
+  memset(bottomLine, whitespace, CHARS_PER_LINE);
+}
+
+void LcdManager::clearTop()
+{
+  fillTopByWhitespaces();
+  render();
+}
+
+void LcdManager::clearBottom()
+{
+  fillBottomByWhitespaces();
+  render();;
+}
+
+void LcdManager::clearAll()
+{
+  memset(bottomLine, whitespace, CHARS_PER_LINE);
+}
+
+void LcdManager::printTop(uint8_t number)
+{
+  itoa(number, topLine, DECIMAL);
+  render();
+}
+
+void LcdManager::printTop(const String &text)
+{  
+  strcpy(topLine, text.c_str()); 
+  render();
+}
+
+void LcdManager::printBottom(uint8_t number)
+{
+  itoa(number, bottomLine, DECIMAL);
+  render();
+}
+
+void LcdManager::printBottom(const String &text)
+{
+  strcpy(bottomLine, text.c_str());
+  render();
 }
