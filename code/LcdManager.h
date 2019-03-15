@@ -11,7 +11,8 @@ public:
     static void initialize();
     static void printFirstRow();
     static void printSecondRow();
-    static void print(int cos);
+    static void print(uint8_t  cos);
+    static void print2(const String &s);
 };
 
 #endif

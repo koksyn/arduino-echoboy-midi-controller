@@ -6,12 +6,18 @@
 #include "StateFactory.h"
 #include "LcdManager.h"
 
+// https://www.arduino.cc/en/Tutorial/Smoothing
+#define NUM_OF_READINGS 20
+
 // AMOUNT OF KNOBS
 #define KNOBS 13
 
 class KnobManager {
 private:
-    static int lastKnobValue[KNOBS];
+    static uint8_t knobReadings[KNOBS][NUM_OF_READINGS];
+    static int knobReadIndex[KNOBS];
+    static uint8_t knobReadTotal[KNOBS];
+    static uint8_t knobReadAverage[KNOBS];
 
     static boolean readKnobAndSet(int knobPinNumber);
     static uint8_t readKnob(uint8_t knobPinNumber);

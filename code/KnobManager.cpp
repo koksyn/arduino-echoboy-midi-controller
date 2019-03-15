@@ -1,21 +1,31 @@
 #include "KnobManager.h"
 
-int KnobManager::lastKnobValue[KNOBS] = {0,0,0,0,0,0,0,0,0,0,0,0,0};
+uint8_t KnobManager::knobReadings[KNOBS][NUM_OF_READINGS];
+int KnobManager::knobReadIndex[KNOBS];
+uint8_t KnobManager::knobReadTotal[KNOBS];
+uint8_t KnobManager::knobReadAverage[KNOBS];
 
 void KnobManager::initialize()
 { 
-    lastKnobValue[PIN_KNOB_ECHO_1_TIME] = readKnob(PIN_KNOB_ECHO_1_TIME);
-    lastKnobValue[PIN_KNOB_ECHO_2_TIME] = readKnob(PIN_KNOB_ECHO_2_TIME);
-    lastKnobValue[PIN_KNOB_FEEDBACK] = readKnob(PIN_KNOB_FEEDBACK);
-    lastKnobValue[PIN_KNOB_MIX] = readKnob(PIN_KNOB_MIX);
-    lastKnobValue[PIN_KNOB_SATURATION] = readKnob(PIN_KNOB_SATURATION);
-    lastKnobValue[PIN_KNOB_LOW_CUT] = readKnob(PIN_KNOB_LOW_CUT);
-    lastKnobValue[PIN_KNOB_HIGH_CUT] = readKnob(PIN_KNOB_HIGH_CUT);
-    lastKnobValue[PIN_KNOB_OUTPUT] = readKnob(PIN_KNOB_OUTPUT);
-    lastKnobValue[PIN_KNOB_FEEL] = readKnob(PIN_KNOB_FEEL);
-    lastKnobValue[PIN_KNOB_GROOVE] = readKnob(PIN_KNOB_GROOVE);
-    lastKnobValue[PIN_KNOB_RHYTM_REPEATS] = readKnob(PIN_KNOB_RHYTM_REPEATS);
-    lastKnobValue[PIN_KNOB_RHYTM_DECAY] = readKnob(PIN_KNOB_RHYTM_DECAY);
+    for(int knob = 0; knob < KNOBS; knob++) {
+        if(knob==PIN_KNOB_INPUT) continue;
+      
+        // initialize index
+        knobReadIndex[knob] = 0;
+
+        // read Knob value
+        uint8_t readedKnobValue = readKnob(knob);
+
+        // initialize all the readings to the same 'ONCE' readed knob value
+        // it's important, because we avoid sending MIDI change signal after Power Up
+        for(int reading = 0; reading < NUM_OF_READINGS; reading++) {
+            knobReadings[knob][reading] = readedKnobValue;
+        }
+
+        // calculate total and average (fixed, because of same knob value)
+        knobReadTotal[knob] = readedKnobValue;
+        knobReadAverage[knob] = readedKnobValue;
+    }
 }
 
 void KnobManager::updateAllKnobs()
@@ -44,7 +54,8 @@ void KnobManager::updateAllKnobs()
             // send midi 1
             // lcd update 1
         }
-    }
+    }*/
+    /*
     if(readKnobAndSet(PIN_KNOB_FEEDBACK)) {
         // send midi
     }
@@ -77,44 +88,53 @@ void KnobManager::updateAllKnobs()
     }*/
 }
 
+boolean ch = false;
+int index = 0;
+int average = 0;
+
 // returns true if set was success
 boolean KnobManager::readKnobAndSet(int knobPinNumber)
 {
-    uint8_t newValue = readKnob(knobPinNumber);
+    index = knobReadIndex[knobPinNumber];
+    
+    // subtract the last reading
+    knobReadTotal[knobPinNumber] = knobReadTotal[knobPinNumber] - knobReadings[knobPinNumber][index];
+    
+    // read from the sensor
+    knobReadings[knobPinNumber][index] = readKnob(knobPinNumber);
+    
+    // add the reading to the total:
+    knobReadTotal[knobPinNumber] = knobReadTotal[knobPinNumber] + knobReadings[knobPinNumber][index];
+    
+    // advance to the next position in the array
+    knobReadIndex[knobPinNumber]++;
 
-    // exceeding marginal value will allow to change lastValue of knob
-    // this solution reduces electrical noise
-    boolean allowedToSet = knobValueExceededMargin(knobPinNumber, newValue, 3);
-
-    if(allowedToSet) {
-         int x = 12121212;
-         int y = 1313131313;
-        LcdManager::print(0);
-        //lastKnobValue[PIN_KNOB_FEEL] = 0;
-        //return true;
+    // reset to array start if exceeded number of readings
+    if (knobReadIndex[knobPinNumber] >= NUM_OF_READINGS) {
+        knobReadIndex[knobPinNumber] = 0;
     }
 
+    average = knobReadTotal[knobPinNumber] / NUM_OF_READINGS;
+ 
+    // this solution reduces electrical noise
+    boolean allowedToSet = average != knobReadAverage[knobPinNumber];
+
+    // delay in between reads for stability
+    delay(5);
+
+    if(allowedToSet) {
+        knobReadAverage[knobPinNumber] = average;
+        LcdManager::print(knobReadings[knobPinNumber][index]);
+        return true;
+    }
+    
+    LcdManager::print2("Nie zmienilo sie");
     return false;
 }
 
 uint8_t KnobManager::readKnob(uint8_t knobPinNumber)
 {
-    uint8_t signal = PinFactory::get(knobPinNumber)->read();
-
+    return PinFactory::get(knobPinNumber)->read();
     // map to midi values
-    return map(signal, 0, 255, 0, 127);
-}
-
-boolean KnobManager::knobValueExceededMargin(uint8_t knobPinNumber, uint8_t newValue, uint8_t marginalValue)
-{
-    return valueNotBetween(
-            newValue,
-            lastKnobValue[knobPinNumber] - marginalValue,
-            lastKnobValue[knobPinNumber] + marginalValue
-    );
-}
-
-boolean KnobManager::valueNotBetween(uint8_t value, uint8_t x, uint8_t y)
-{
-    return (value < x) || (value > y);
+    //return signal;//map(signal, 0, 255, 0, 127);
 }
