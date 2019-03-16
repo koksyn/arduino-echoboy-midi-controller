@@ -30,6 +30,7 @@
 #define PIN_LED_BYPASS          16
 #define PIN_LED_SYNC_TIME       17
 #define PIN_LED_PRIME_NUMBERS   18
+#define PIN_BUTTON_DIP_MIDI_4   67
 
 // PCF 1 (INT) for BUTTONS
 #define PIN_BUTTON_DIP_MIDI_3       19
@@ -92,7 +93,7 @@
 #define PIN_LED_ECHO_2_NOTE     66
 
 // AMOUNT OF PINS
-#define PINS 67
+#define PINS 68
 
 class PinFactory {
 private:

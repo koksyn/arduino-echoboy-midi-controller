@@ -43,6 +43,10 @@ void InterruptionRouter::enableInterruptions()
         buttonPressed = PIN_BUTTON_DIP_MIDI_3;
     }, CHANGE);
 
+    PinFactory::get(PIN_BUTTON_DIP_MIDI_4)->attachInterrupt([&]() {
+        buttonPressed = PIN_BUTTON_DIP_MIDI_4;
+    }, CHANGE);
+
     PinFactory::get(PIN_BUTTON_MODE)->attachInterrupt([&]() {
         buttonPressed = PIN_BUTTON_MODE;
     }, FALLING);

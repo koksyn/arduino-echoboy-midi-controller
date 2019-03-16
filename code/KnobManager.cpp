@@ -5,8 +5,6 @@ ResponsiveAnalogRead* KnobManager::reading[KNOBS];
 void KnobManager::initialize()
 { 
     for(int knob = 0; knob < KNOBS; knob++) {
-        if(knob==PIN_KNOB_INPUT) continue;
-
         // initialize reading
         reading[knob] = new ResponsiveAnalogRead(0, true);
       
