@@ -19,7 +19,6 @@ private:
 
     static boolean readKnobAndSet(int knobPinNumber);
     static int readKnob(uint8_t knobPinNumber);
-    static void sendKnobValueAsMidiCC(int knobPinNumber);
 public:
     static void initialize();
     static void updateAllKnobs();
