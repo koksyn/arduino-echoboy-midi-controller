@@ -21,13 +21,14 @@ void KnobManager::initialize()
 void KnobManager::updateAllKnobs()
 {
     if(readKnobAndSet(PIN_KNOB_ECHO_1_TIME)) {
-        int knobValue = reading[PIN_KNOB_ECHO_1_TIME]->getValue();
-        // map 10-bit value to MIDI(0-127)
-        knobValue = map(knobValue, 1023, 0, 0, 127);
-        // send MIDI CC
-        MidiProxy::sendCC(CC_ECHO_1_TIME, knobValue);
+        // Send MIDI
+        sendKnobValueAsMidiCC(PIN_KNOB_ECHO_1_TIME);
         // Update top LCD line
-        LcdManager::printTop(knobValue);
+        LcdManager::printTop(
+            reading[PIN_KNOB_ECHO_1_TIME]->getValue()
+        );
+
+        sendKnobValueAsMidiCC(PIN_KNOB_ECHO_1_TIME);
 
         // check that timing of Echo1 & Echo2 is in SYNC
         if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
@@ -38,8 +39,12 @@ void KnobManager::updateAllKnobs()
         }
     }
     if(readKnobAndSet(PIN_KNOB_ECHO_2_TIME)) {
-        // send midi 2
-        // lcd update 2
+        // Send MIDI
+        sendKnobValueAsMidiCC(PIN_KNOB_ECHO_2_TIME);
+        // Update bottom LCD line
+        LcdManager::printBottom(
+            reading[PIN_KNOB_ECHO_2_TIME]->getValue()
+        );
 
         // check that timing of Echo1 & Echo2 is in SYNC
         if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
@@ -81,7 +86,6 @@ void KnobManager::updateAllKnobs()
     }
 }
 
-// returns true if set was success
 boolean KnobManager::readKnobAndSet(int knobPinNumber)
 {
     reading[knobPinNumber]->update(
@@ -95,4 +99,18 @@ boolean KnobManager::readKnobAndSet(int knobPinNumber)
 int KnobManager::readKnob(uint8_t knobPinNumber)
 {
     return PinFactory::get(knobPinNumber)->read();
+}
+
+void KnobManager::sendKnobValueAsMidiCC(int knobPinNumber)
+{
+    int knobValue = reading[knobPinNumber]->getValue();
+
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+
+    // send MIDI CC
+    MidiProxy::sendCC(
+        CC_ECHO_1_TIME, // todo: get it from Pin or some map (Pin->CC)
+        knobValue
+    );
 }

@@ -3,12 +3,13 @@
 
 #include <MIDI.h>
 
-
+#define SERIAL_MIDI_BIT_RATE 9600
 #define MIDI_DEFAULT_CHANNEL 10
 #define MIDI_MAX_VALUE 127
 
 #define CC_ECHO_1_TIME 22
-#define CC_MODE 23
+#define CC_ECHO_2_TIME 23
+#define CC_MODE 24
 
 #define NOTE_C2 36
 
