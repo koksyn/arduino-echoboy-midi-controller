@@ -51,7 +51,7 @@ void LcdManager::clearAll()
   render();
 }
 
-void LcdManager::printTop(uint8_t number)
+void LcdManager::printTop(int number)
 {
   itoa(number, topLine, DECIMAL);
   render();
@@ -63,7 +63,7 @@ void LcdManager::printTop(const String &text)
   render();
 }
 
-void LcdManager::printBottom(uint8_t number)
+void LcdManager::printBottom(int number)
 {
   itoa(number, bottomLine, DECIMAL);
   render();

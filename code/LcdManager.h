@@ -26,11 +26,11 @@ public:
     static void clearAll();
     
     // first LCD line
-    static void printTop(uint8_t number);
+    static void printTop(int number);
     static void printTop(const String &text);
 
     // second LCD line
-    static void printBottom(uint8_t number);
+    static void printBottom(int number);
     static void printBottom(const String &text);
 };
 

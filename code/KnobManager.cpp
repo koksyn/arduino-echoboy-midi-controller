@@ -1,30 +1,20 @@
 #include "KnobManager.h"
 
-uint8_t KnobManager::knobReadings[KNOBS][NUM_OF_READINGS];
-int KnobManager::knobReadIndex[KNOBS];
-uint8_t KnobManager::knobReadTotal[KNOBS];
-uint8_t KnobManager::knobReadAverage[KNOBS];
+ResponsiveAnalogRead* KnobManager::reading[KNOBS];
 
 void KnobManager::initialize()
 { 
     for(int knob = 0; knob < KNOBS; knob++) {
         if(knob==PIN_KNOB_INPUT) continue;
+
+        // initialize reading
+        reading[knob] = new ResponsiveAnalogRead(0, true);
       
-        // initialize index
-        knobReadIndex[knob] = 0;
+        int readedValue = readKnob(knob);
 
-        // read Knob value
-        uint8_t readedKnobValue = readKnob(knob);
-
-        // initialize all the readings to the same 'ONCE' readed knob value
+        // update reading to initial knob position
         // it's important, because we avoid sending MIDI change signal after Power Up
-        for(int reading = 0; reading < NUM_OF_READINGS; reading++) {
-            knobReadings[knob][reading] = readedKnobValue;
-        }
-
-        // calculate total and average (fixed, because of same knob value)
-        knobReadTotal[knob] = readedKnobValue;
-        knobReadAverage[knob] = readedKnobValue;
+        reading[knob]->update(readedValue);
     }
 }
 
@@ -86,57 +76,32 @@ void KnobManager::updateAllKnobs()
     }
 }
 
-int index = 0;
-int average = 0;
-
 // returns true if set was success
 boolean KnobManager::readKnobAndSet(int knobPinNumber)
 {
-// trzeba spróbować to (o wiele lepsze rozwiązanie bez lagów)
-    // https://github.com/dxinteractive/ResponsiveAnalogRead
+    reading[knobPinNumber]->update(
+      readKnob(knobPinNumber)
+    );
     
-    index = knobReadIndex[knobPinNumber];
-    
-    // subtract the last reading
-    knobReadTotal[knobPinNumber] = knobReadTotal[knobPinNumber] - knobReadings[knobPinNumber][index];
-    
-    // read from the sensor
-    knobReadings[knobPinNumber][index] = readKnob(knobPinNumber);
-    
-    // add the reading to the total:
-    knobReadTotal[knobPinNumber] = knobReadTotal[knobPinNumber] + knobReadings[knobPinNumber][index];
-    
-    // advance to the next position in the array
-    knobReadIndex[knobPinNumber]++;
-
-    // reset to array start if exceeded number of readings
-    if (knobReadIndex[knobPinNumber] >= NUM_OF_READINGS) {
-        knobReadIndex[knobPinNumber] = 0;
-    }
-
-    average = knobReadTotal[knobPinNumber] / NUM_OF_READINGS;
- 
     // this solution reduces electrical noise
-    boolean allowedToSet = average != knobReadAverage[knobPinNumber];
-
-    // delay in between reads for stability
-    delay(1);
-
-    if(allowedToSet) {
-        knobReadAverage[knobPinNumber] = average;
-        
+    if(reading[knobPinNumber]->hasChanged()) {        
         if(knobPinNumber == PIN_KNOB_ECHO_1_TIME)
-        LcdManager::printTop(knobReadings[knobPinNumber][index]);
+        LcdManager::printTop(
+            reading[knobPinNumber]->getValue()
+        );
         
         if(knobPinNumber == PIN_KNOB_HIGH_CUT)
-        LcdManager::printBottom(knobReadings[knobPinNumber][index]);
+        LcdManager::printBottom(
+            reading[knobPinNumber]->getValue()
+        );
         
         return true;
     }
+    
     return false;
 }
 
-uint8_t KnobManager::readKnob(uint8_t knobPinNumber)
+int KnobManager::readKnob(uint8_t knobPinNumber)
 {
     return PinFactory::get(knobPinNumber)->read();
     // map to midi values

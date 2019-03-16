@@ -1,6 +1,6 @@
 #include "Pcf8574Pin.h"
 
-uint8_t Pcf8574Pin::read()
+int Pcf8574Pin::read()
 {
     return expander->digitalRead(getAddress());
 }

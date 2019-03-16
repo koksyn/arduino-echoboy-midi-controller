@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-uint8_t ArduinoDigitalPin::read()
+int ArduinoDigitalPin::read()
 {
     return digitalRead(getAddress());
 }
