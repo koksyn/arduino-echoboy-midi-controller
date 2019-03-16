@@ -3,14 +3,12 @@
 uint8_t MidiProxy::channel;
 
 // https://github.com/FortySevenEffects/arduino_midi_library/blob/master/src/MIDI.h
-// Send note 42 with velocity 127 on channel 1
-// MIDI.sendNoteOn(42, 127, 1);
 
-// Created and binds the MIDI interface to the default hardware Serial port
+// Created and binds the MIDI interface to the Hairless MIDI Serial Bus
 struct HairlessMidiSettings : public midi::DefaultSettings
 {
-    static const bool UseRunningStatus = false;
-    static const long BaudRate = 9600;
+    static const bool UseRunningStatus = false; // it's very important to have this 'extra' status disabled
+    static const long BaudRate = SERIAL_MIDI_BIT_RATE;
 };
 MIDI_CREATE_CUSTOM_INSTANCE(HardwareSerial, Serial, MIDI, HairlessMidiSettings);
 
