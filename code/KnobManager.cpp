@@ -165,9 +165,9 @@ void KnobManager::forceAllKnobsToSendMIDI()
     int knobValue = 0;
 
     // check that timing of Echo1 & Echo2 is in SYNC
-    // and someone synchronized it earlier
+    // or someone synchronized it earlier (but off the sync mode - without touching the knobs)
     if(
-       MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED)) &&
+       MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED)) ||
        (lastSynchronizedEchoTime != EMPTY_SYNC)
     ) {
         // Send MIDI
