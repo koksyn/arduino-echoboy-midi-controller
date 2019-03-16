@@ -26,6 +26,7 @@
 #define CC_MODE 35
 #define CC_ECHO_1_DIVISION 36
 #define CC_ECHO_2_DIVISION 37
+#define CC_STYLE 38
 
 // Notes (for buttons) on/off
 #define NOTE_C2_BYPASS 36

@@ -158,7 +158,7 @@ void StateFactory::initialize()
     states[STATE_STYLE_TAPE_STUDIO] = new State([&]() {
         // midi
         // TODO: to be checked TOTAL amount of Styles in Echoboy VST & fill all states then here
-        // MidiProxy::sendStepByCC(CC_MODE, 1, total??);
+        // MidiProxy::sendStepByCC(CC_STYLE, 1, total??);
 
         // leds
         PinFactory::get(PIN_LED_TAPE_STUDIO)->write(LOW);
