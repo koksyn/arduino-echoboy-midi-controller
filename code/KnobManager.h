@@ -8,6 +8,7 @@
 #include "MachineFactory.h"
 #include "StateFactory.h"
 #include "LcdManager.h"
+#include "MidiProxy.h"
 
 // AMOUNT OF KNOBS
 #define KNOBS 13
