@@ -8,15 +8,11 @@ void StateFactory::initialize()
 {
     // ---------- SYNC TIME ----------
     states[STATE_SYNC_TIME_DISABLED] = new State([&]() {
-        // midi
-
         // led
         PinFactory::get(PIN_LED_SYNC_TIME)->write(LOW); // off
     });
 
     states[STATE_SYNC_TIME_ENABLED] = new State([&]() {
-        // midi
-
         // led
         PinFactory::get(PIN_LED_SYNC_TIME)->write(HIGH); // on
     });
@@ -27,6 +23,7 @@ void StateFactory::initialize()
     // ---------- PRIME NUMBERS ----------
     states[STATE_PRIME_NUMBERS_DISABLED] = new State([&]() {
         // midi
+        MidiProxy::sendNote(NOTE_C3_PRIME_NUMBERS);
 
         // led
         PinFactory::get(PIN_LED_PRIME_NUMBERS)->write(LOW); // off
@@ -34,6 +31,7 @@ void StateFactory::initialize()
 
     states[STATE_PRIME_NUMBERS_ENABLED] = new State([&]() {
         // midi
+        MidiProxy::sendNote(NOTE_C3_PRIME_NUMBERS);
 
         // led
         PinFactory::get(PIN_LED_PRIME_NUMBERS)->write(HIGH); // on
@@ -45,6 +43,7 @@ void StateFactory::initialize()
     // ---------- ECHO 1 ----------
     states[STATE_ECHO_1_TIME] = new State([&]() {
         // midi
+        MidiProxy::sendStepByCC(CC_ECHO_1_DIVISION, 1, 2);
 
         // led
         PinFactory::get(PIN_LED_ECHO_1_NOTE)->write(HIGH); // off
@@ -53,6 +52,7 @@ void StateFactory::initialize()
 
     states[STATE_ECHO_1_NOTE] = new State([&]() {
         // midi
+        MidiProxy::sendStepByCC(CC_ECHO_1_DIVISION, 2, 2);
 
         // led
         PinFactory::get(PIN_LED_ECHO_1_NOTE)->write(LOW);
@@ -65,6 +65,7 @@ void StateFactory::initialize()
     // ---------- ECHO 2 ----------
     states[STATE_ECHO_2_TIME] = new State([&]() {
         // midi
+        MidiProxy::sendStepByCC(CC_ECHO_2_DIVISION, 1, 2);
 
         // led
         PinFactory::get(PIN_LED_ECHO_2_NOTE)->write(HIGH); // off
@@ -73,6 +74,7 @@ void StateFactory::initialize()
 
     states[STATE_ECHO_2_NOTE] = new State([&]() {
         // midi
+        MidiProxy::sendStepByCC(CC_ECHO_2_DIVISION, 2, 2);
 
         // led
         PinFactory::get(PIN_LED_ECHO_2_NOTE)->write(LOW);
@@ -129,14 +131,14 @@ void StateFactory::initialize()
     // ---------- BYPASS ----------
     states[STATE_BYPASS_DISABLED] = new State([&]() {
         // midi
-        MidiProxy::sendNote(NOTE_C2);
+        MidiProxy::sendNote(NOTE_C2_BYPASS);
         // led
         PinFactory::get(PIN_LED_BYPASS)->write(LOW); // off
     });
 
     states[STATE_BYPASS_ENABLED] = new State([&]() {
         // midi
-        MidiProxy::sendNote(NOTE_C2);
+        MidiProxy::sendNote(NOTE_C2_BYPASS);
         // led
         PinFactory::get(PIN_LED_BYPASS)->write(HIGH); // on
     });
@@ -146,8 +148,6 @@ void StateFactory::initialize()
 
     // ---------- STYLE TAPE ----------
     states[STATE_STYLE_TAPE_DISABLED] = new State([&]() {
-        // midi
-
         // leds
         PinFactory::get(PIN_LED_TAPE_STUDIO)->write(HIGH); // off
         PinFactory::get(PIN_LED_TAPE_CHEAP)->write(HIGH); // off
@@ -157,6 +157,8 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_TAPE_STUDIO] = new State([&]() {
         // midi
+        // TODO: to be checked TOTAL amount of Styles in Echoboy VST & fill all states then here
+        // MidiProxy::sendStepByCC(CC_MODE, 1, total??);
 
         // leds
         PinFactory::get(PIN_LED_TAPE_STUDIO)->write(LOW);
@@ -197,8 +199,6 @@ void StateFactory::initialize()
 
     // ---------- STYLE ECHO ----------
     states[STATE_STYLE_ECHO_DISABLED] = new State([&]() {
-        // midi
-
         // leds
         PinFactory::get(PIN_LED_ECHO_PLEX)->write(HIGH); // off
         PinFactory::get(PIN_LED_ECHO_SPACE)->write(HIGH); // off
@@ -246,8 +246,6 @@ void StateFactory::initialize()
 
     // ---------- STYLE BBD ----------
     states[STATE_STYLE_BBD_DISABLED] = new State([&]() {
-        // midi
-
         // leds
         PinFactory::get(PIN_LED_BBD_MEMORY_MAN)->write(HIGH); // off
         PinFactory::get(PIN_LED_BBD_ANALOG)->write(HIGH); // off
@@ -295,8 +293,6 @@ void StateFactory::initialize()
 
     // ---------- STYLE BIAS ----------
     states[STATE_STYLE_BIAS_DISABLED] = new State([&]() {
-        // midi
-
         // leds
         PinFactory::get(PIN_LED_BIAS_TRANSMITTER)->write(HIGH); // off
         PinFactory::get(PIN_LED_BIAS_DISTORTED)->write(HIGH); // off
@@ -344,8 +340,6 @@ void StateFactory::initialize()
 
     // ---------- STYLE CHORUS ----------
     states[STATE_STYLE_CHORUS_DISABLED] = new State([&]() {
-        // midi
-
         // leds
         PinFactory::get(PIN_LED_CHORUS_CE_1)->write(HIGH); // off
         PinFactory::get(PIN_LED_CHORUS_ANALOG)->write(HIGH); // off
@@ -393,8 +387,6 @@ void StateFactory::initialize()
 
     // ---------- STYLE ATMO ----------
     states[STATE_STYLE_ATMO_DISABLED] = new State([&]() {
-        // midi
-
         // leds
         PinFactory::get(PIN_LED_ATMO_AMBIENT)->write(HIGH); // off
         PinFactory::get(PIN_LED_ATMO_VERBED)->write(HIGH); // off
