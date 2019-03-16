@@ -10,6 +10,8 @@
 volatile uint8_t buttonPressed = 0;
 
 void setup() {
+  Serial.begin(9600);
+
   MidiProxy::initialize();
 
   PinFactory::initialize();
