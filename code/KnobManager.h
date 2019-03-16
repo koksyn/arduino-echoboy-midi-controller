@@ -13,6 +13,10 @@
 // AMOUNT OF KNOBS
 #define KNOBS 13
 
+// used when User have not SYNC mode enabled
+// or when User does not change Echo Time after Synchronization
+#define EMPTY_SYNC -1
+
 class KnobManager {
 private:
     static ResponsiveAnalogRead* reading[KNOBS];
@@ -22,6 +26,7 @@ private:
 public:
     static void initialize();
     static void updateAllKnobs();
+    static void forceAllKnobsToSendMIDI();
 };
 
 #endif

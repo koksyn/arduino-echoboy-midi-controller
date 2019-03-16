@@ -3,6 +3,7 @@
 #include "MachineFactory.h"
 #include "StateFactory.h"
 #include "PinFactory.h"
+#include "KnobManager.h"
 
 void ButtonHandler::handle(uint8_t code)
 {
@@ -151,7 +152,8 @@ void ButtonHandler::handle(uint8_t code)
             for(int i=0; i<MACHINES; i++) {
                 MachineFactory::get(i)->executeCurrentState();
             }
-            // todo: send all knobs
+            // execute all knobs
+            KnobManager::forceAllKnobsToSendMIDI();
 
             // delay + LED off
             delay(100);

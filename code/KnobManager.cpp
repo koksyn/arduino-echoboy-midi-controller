@@ -16,6 +16,8 @@ void KnobManager::initialize()
     }
 }
 
+int lastSynchronizedEchoTime = EMPTY_SYNC;
+
 void KnobManager::updateAllKnobs()
 {
     int knobValue = 0;
@@ -36,6 +38,10 @@ void KnobManager::updateAllKnobs()
             MidiProxy::sendCC(CC_ECHO_2_TIME, knobValue);
             // Update bottom LCD line
             LcdManager::printBottom(knobValue);
+
+            lastSynchronizedEchoTime = knobValue;
+        } else {
+            lastSynchronizedEchoTime = EMPTY_SYNC;
         }
     }
     if(readKnobAndSet(PIN_KNOB_ECHO_2_TIME)) {
@@ -54,6 +60,10 @@ void KnobManager::updateAllKnobs()
             MidiProxy::sendCC(CC_ECHO_1_TIME, knobValue);
             // Update top LCD line
             LcdManager::printTop(knobValue);
+
+            lastSynchronizedEchoTime = knobValue;
+        } else {
+            lastSynchronizedEchoTime = EMPTY_SYNC;
         }
     }
     if(readKnobAndSet(PIN_KNOB_FEEDBACK)) {
@@ -148,4 +158,106 @@ boolean KnobManager::readKnobAndSet(int knobPinNumber)
 int KnobManager::readKnob(uint8_t knobPinNumber)
 {
     return PinFactory::get(knobPinNumber)->read();
+}
+
+void forceAllKnobsToSendMIDI()
+{
+    int knobValue = 0;
+
+    // check that timing of Echo1 & Echo2 is in SYNC
+    // and someone synchronized it earlier
+    if(
+       MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED)) &&
+       (lastSynchronizedEchoTime != EMPTY_SYNC)
+    ) {
+        // Send MIDI
+        MidiProxy::sendCC(CC_ECHO_1_TIME, lastSynchronizedEchoTime);
+        MidiProxy::sendCC(CC_ECHO_2_TIME, lastSynchronizedEchoTime);
+        // Update LCD
+        LcdManager::printTop(lastSynchronizedEchoTime);
+        LcdManager::printBottom(lastSynchronizedEchoTime);
+    }
+    else {
+        knobValue = reading[PIN_KNOB_ECHO_1_TIME]->getValue();
+        // map 10-bit value to MIDI(0-127)
+        knobValue = map(knobValue, 1023, 0, 0, 127);
+        // Send MIDI
+        MidiProxy::sendCC(CC_ECHO_1_TIME, knobValue);
+        // Update top LCD line
+        LcdManager::printTop(knobValue);
+
+        knobValue = reading[PIN_KNOB_ECHO_2_TIME]->getValue();
+        // map 10-bit value to MIDI(0-127)
+        knobValue = map(knobValue, 1023, 0, 0, 127);
+        // Send MIDI
+        MidiProxy::sendCC(CC_ECHO_2_TIME, knobValue);
+        // Update bottom LCD line
+        LcdManager::printBottom(knobValue);
+    }
+
+    knobValue = reading[PIN_KNOB_FEEDBACK]->getValue();
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+    // Send MIDI
+    MidiProxy::sendCC(CC_FEEDBACK, knobValue);
+
+    knobValue = reading[PIN_KNOB_MIX]->getValue();
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+    // Send MIDI
+    MidiProxy::sendCC(CC_MIX, knobValue);
+
+    knobValue = reading[PIN_KNOB_SATURATION]->getValue();
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+    // Send MIDI
+    MidiProxy::sendCC(CC_SATURATION, knobValue);
+
+    knobValue = reading[PIN_KNOB_LOW_CUT]->getValue();
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+    // Send MIDI
+    MidiProxy::sendCC(CC_LOW_CUT, knobValue);
+
+    knobValue = reading[PIN_KNOB_HIGH_CUT]->getValue();
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+    // Send MIDI
+    MidiProxy::sendCC(CC_HIGH_CUT, knobValue);
+
+    knobValue = reading[PIN_KNOB_INPUT]->getValue();
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+    // Send MIDI
+    MidiProxy::sendCC(CC_INPUT, knobValue);
+
+    knobValue = reading[PIN_KNOB_OUTPUT]->getValue();
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+    // Send MIDI
+    MidiProxy::sendCC(CC_OUTPUT, knobValue);
+
+    knobValue = reading[PIN_KNOB_FEEL]->getValue();
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+    // Send MIDI
+    MidiProxy::sendCC(CC_FEEL, knobValue);
+
+    knobValue = reading[PIN_KNOB_GROOVE]->getValue();
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+    // Send MIDI
+    MidiProxy::sendCC(CC_GROOVE, knobValue);
+
+    knobValue = reading[PIN_KNOB_RHYTM_REPEATS]->getValue();
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+    // Send MIDI
+    MidiProxy::sendCC(CC_RHYTM_REPEATS, knobValue);
+
+    knobValue = reading[PIN_KNOB_RHYTM_DECAY]->getValue();
+    // map 10-bit value to MIDI(0-127)
+    knobValue = map(knobValue, 1023, 0, 0, 127);
+    // Send MIDI
+    MidiProxy::sendCC(CC_RHYTM_DECAY, knobValue);
 }
