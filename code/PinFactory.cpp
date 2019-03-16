@@ -20,11 +20,11 @@ PCF8574* PinFactory::ledExpander4 = new PCF8574();
 void PinFactory::initialize()
 {
     // ARDUINO Analog for Knobs
-    pins[PIN_KNOB_ECHO_1_TIME] = (Pin*) new ArduinoAnalogPin(A1, INPUT);
-    pins[PIN_KNOB_OUTPUT] = (Pin*) new ArduinoAnalogPin(A0, INPUT);
-    //pins[PIN_KNOB_INPUT] = (Pin*) new ArduinoAnalogPin(A2, INPUT);
-    pins[PIN_KNOB_HIGH_CUT] = (Pin*) new ArduinoAnalogPin(A2, INPUT);
-    pins[PIN_KNOB_LOW_CUT] = (Pin*) new ArduinoAnalogPin(A3, INPUT);
+    pins[PIN_KNOB_ECHO_1_TIME] = (Pin*) new ArduinoAnalogPin(A15, INPUT);
+    pins[PIN_KNOB_OUTPUT] = (Pin*) new ArduinoAnalogPin(A10, INPUT);
+    pins[PIN_KNOB_INPUT] = (Pin*) new ArduinoAnalogPin(A7, INPUT);
+    pins[PIN_KNOB_HIGH_CUT] = (Pin*) new ArduinoAnalogPin(A12, INPUT);
+    pins[PIN_KNOB_LOW_CUT] = (Pin*) new ArduinoAnalogPin(A13, INPUT);
 
     // MCP3008 Analog for Knobs
     pins[PIN_KNOB_RHYTM_REPEATS] = (Pin*) new Mcp3008Pin(0, INPUT, analogDigitalConverter);
@@ -37,12 +37,13 @@ void PinFactory::initialize()
     pins[PIN_KNOB_ECHO_2_TIME] = (Pin*) new Mcp3008Pin(7, INPUT, analogDigitalConverter);
 
     // ARDUINO Digital
-    pins[PIN_INT_FROM_PCF] = (Pin*) new ArduinoDigitalPin(2, INPUT_PULLUP);
-    pins[PIN_INT_FROM_PCF_2] = (Pin*) new ArduinoDigitalPin(3, INPUT_PULLUP);
-    pins[PIN_LED_MIDI_ALL] = (Pin*) new ArduinoDigitalPin(4, OUTPUT);
-    pins[PIN_LED_BYPASS] = (Pin*) new ArduinoDigitalPin(5, OUTPUT);
-    pins[PIN_LED_SYNC_TIME] = (Pin*) new ArduinoDigitalPin(6, OUTPUT);
-    pins[PIN_LED_PRIME_NUMBERS] = (Pin*) new ArduinoDigitalPin(7, OUTPUT);
+    pins[PIN_INT_FROM_PCF] = (Pin*) new ArduinoDigitalPin(3, INPUT_PULLUP);
+    pins[PIN_INT_FROM_PCF_2] = (Pin*) new ArduinoDigitalPin(2, INPUT_PULLUP);
+    pins[PIN_LED_MIDI_ALL] = (Pin*) new ArduinoDigitalPin(7, OUTPUT);
+    pins[PIN_LED_BYPASS] = (Pin*) new ArduinoDigitalPin(6, OUTPUT);
+    pins[PIN_LED_SYNC_TIME] = (Pin*) new ArduinoDigitalPin(9, OUTPUT);
+    pins[PIN_LED_PRIME_NUMBERS] = (Pin*) new ArduinoDigitalPin(8, OUTPUT);
+    pins[PIN_BUTTON_DIP_MIDI_4] = (Pin*) new ArduinoDigitalPin(11, INPUT_PULLUP);
 
     // PCF 1 (INT) for BUTTONS ----- 0x38
     pins[PIN_BUTTON_DIP_MIDI_3] = (Pin*) new Pcf8574Pin(0, INPUT_PULLUP, buttonExpander);
@@ -124,8 +125,6 @@ void PinFactory::runIntegratedCircuits()
 {
     // Arduino Analog + MCP3008 + Arduino Digital
     for(uint8_t i=0; i<PIN_BUTTON_DIP_MIDI_3; i++) {
-        if(i==PIN_KNOB_INPUT) continue;
-
         pins[i]->applyMode();
     }
 
