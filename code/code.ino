@@ -23,11 +23,6 @@ void setup() {
   InterruptionRouter::enableInterruptions();
 
   LcdManager::initialize();
-  //LcdManager::printFirstRow();
-  //LcdManager::printSecondRow();
-
-  
-   
 }
 
 void loop() {
