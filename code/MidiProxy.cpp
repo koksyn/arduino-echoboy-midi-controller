@@ -6,11 +6,11 @@ uint8_t MidiProxy::channel;
 // Send note 42 with velocity 127 on channel 1
 // MIDI.sendNoteOn(42, 127, 1);
 
+// Created and binds the MIDI interface to the default hardware Serial port
+MIDI_CREATE_DEFAULT_INSTANCE();
+
 void MidiProxy::initialize()
 {
-    // Created and binds the MIDI interface to the default hardware Serial port
-    MIDI_CREATE_DEFAULT_INSTANCE();
-
     // Default channel
     channel = MIDI_DEFAULT_CHANNEL;
 
@@ -21,4 +21,25 @@ void MidiProxy::initialize()
 void MidiProxy::setChannel(uint8_t newChannel)
 {
     channel = newChannel;
+}
+
+void MidiProxy::sendNote(int noteNumber)
+{
+    MIDI.sendNoteOn(noteNumber, 127, channel);
+    delay(5);
+    MIDI.sendNoteOff(noteNumber, 0, channel);
+}
+
+void MidiProxy::sendCC(int controlNumber, int controlValue)
+{
+    MIDI.sendControlChange(controlNumber, controlValue, channel);
+}
+
+void MidiProxy::sendStepByCC(int controlNumber, int step, int totalSteps)
+{
+    int interval = MIDI_MAX_VALUE / totalSteps;
+    int pivot = (interval/2);
+    int controlValueForStep = ((step - 1) * interval) + pivot;
+
+    sendCC(controlNumber, controlValueForStep);
 }

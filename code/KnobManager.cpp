@@ -21,8 +21,13 @@ void KnobManager::initialize()
 void KnobManager::updateAllKnobs()
 {
     if(readKnobAndSet(PIN_KNOB_ECHO_1_TIME)) {
-        // send midi 1
-        // lcd update 1
+        int knobValue = reading[PIN_KNOB_ECHO_1_TIME]->getValue();
+        // map 10-bit value to MIDI(0-127)
+        knobValue = map(knobValue, 1023, 0, 0, 127);
+        // send MIDI CC
+        MidiProxy::sendCC(CC_ECHO_1_TIME, knobValue);
+        // Update top LCD line
+        LcdManager::printTop(knobValue);
 
         // check that timing of Echo1 & Echo2 is in SYNC
         if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
@@ -84,26 +89,10 @@ boolean KnobManager::readKnobAndSet(int knobPinNumber)
     );
     
     // this solution reduces electrical noise
-    if(reading[knobPinNumber]->hasChanged()) {        
-        if(knobPinNumber == PIN_KNOB_ECHO_1_TIME)
-        LcdManager::printTop(
-            reading[knobPinNumber]->getValue()
-        );
-        
-        if(knobPinNumber == PIN_KNOB_HIGH_CUT)
-        LcdManager::printBottom(
-            reading[knobPinNumber]->getValue()
-        );
-        
-        return true;
-    }
-    
-    return false;
+    return reading[knobPinNumber]->hasChanged();
 }
 
 int KnobManager::readKnob(uint8_t knobPinNumber)
 {
     return PinFactory::get(knobPinNumber)->read();
-    // map to midi values
-    //return signal;//map(signal, 0, 255, 0, 127);
 }

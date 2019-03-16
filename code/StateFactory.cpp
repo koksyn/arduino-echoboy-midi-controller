@@ -85,6 +85,7 @@ void StateFactory::initialize()
     // ---------- MODE ----------
     states[STATE_MODE_PONG] = new State([&]() {
         // midi
+        MidiProxy::sendStepByCC(CC_MODE, 1, 4);
 
         // led
         PinFactory::get(PIN_LED_MODE_PING_PONG)->write(LOW);
@@ -95,6 +96,7 @@ void StateFactory::initialize()
 
     states[STATE_MODE_DUAL] = new State([&]() {
         // midi
+        MidiProxy::sendStepByCC(CC_MODE, 2, 4);
 
         // led
         PinFactory::get(PIN_LED_MODE_DUAL)->write(LOW);
@@ -103,6 +105,7 @@ void StateFactory::initialize()
 
     states[STATE_MODE_RHYTM] = new State([&]() {
         // midi
+        MidiProxy::sendStepByCC(CC_MODE, 3, 4);
 
         // led
         PinFactory::get(PIN_LED_MODE_RHYTM)->write(LOW);
@@ -111,6 +114,7 @@ void StateFactory::initialize()
 
     states[STATE_MODE_SINGLE] = new State([&]() {
         // midi
+        MidiProxy::sendStepByCC(CC_MODE, 4, 4);
 
         // led
         PinFactory::get(PIN_LED_MODE_SINGLE)->write(LOW);
@@ -125,14 +129,14 @@ void StateFactory::initialize()
     // ---------- BYPASS ----------
     states[STATE_BYPASS_DISABLED] = new State([&]() {
         // midi
-
+        MidiProxy::sendNote(NOTE_C2);
         // led
         PinFactory::get(PIN_LED_BYPASS)->write(LOW); // off
     });
 
     states[STATE_BYPASS_ENABLED] = new State([&]() {
         // midi
-
+        MidiProxy::sendNote(NOTE_C2);
         // led
         PinFactory::get(PIN_LED_BYPASS)->write(HIGH); // on
     });
