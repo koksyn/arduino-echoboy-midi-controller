@@ -7,7 +7,12 @@ uint8_t MidiProxy::channel;
 // MIDI.sendNoteOn(42, 127, 1);
 
 // Created and binds the MIDI interface to the default hardware Serial port
-MIDI_CREATE_DEFAULT_INSTANCE();
+struct HairlessMidiSettings : public midi::DefaultSettings
+{
+    static const bool UseRunningStatus = false;
+    static const long BaudRate = 9600;
+};
+MIDI_CREATE_CUSTOM_INSTANCE(HardwareSerial, Serial, MIDI, HairlessMidiSettings);
 
 void MidiProxy::initialize()
 {
