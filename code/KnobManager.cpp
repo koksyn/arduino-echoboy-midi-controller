@@ -160,7 +160,7 @@ int KnobManager::readKnob(uint8_t knobPinNumber)
     return PinFactory::get(knobPinNumber)->read();
 }
 
-void forceAllKnobsToSendMIDI()
+void KnobManager::forceAllKnobsToSendMIDI()
 {
     int knobValue = 0;
 
