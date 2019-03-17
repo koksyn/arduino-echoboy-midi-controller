@@ -12,10 +12,10 @@ volatile uint8_t buttonPressed = 0;
 void setup() {
   Serial.begin(SERIAL_MIDI_BIT_RATE);
 
-  MidiProxy::initialize();
-
   PinFactory::initialize();
   PinFactory::runIntegratedCircuits();
+
+  MidiProxy::initialize();
 
   StateFactory::initialize();
   MachineFactory::initialize();
@@ -28,12 +28,14 @@ void setup() {
 }
 
 void loop() {
+  MidiProxy::listenForMidiChannelChanges();
+
   KnobManager::updateAllKnobs();
   ButtonHandler::handle(buttonPressed);
   
   // reset after handling
   if(buttonPressed > 0) {
-    //LcdManager::print(buttonPressed);
+    LcdManager::printTop(buttonPressed);
     buttonPressed = 0;
   }
 }

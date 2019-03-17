@@ -29,24 +29,8 @@ void InterruptionRouter::enableInterruptions()
 
     // --- bind PCF pins to callbacks (using lambdas) ---
 
-    // ARDUINO Digital
-    PinFactory::get(PIN_BUTTON_DIP_MIDI_1)->attachInterrupt([&]() {
-        buttonPressed = PIN_BUTTON_DIP_MIDI_1;
-    }, CHANGE);
 
     // PCF 1 (INT) for BUTTONS
-    PinFactory::get(PIN_BUTTON_DIP_MIDI_2)->attachInterrupt([&]() {
-        buttonPressed = PIN_BUTTON_DIP_MIDI_2;
-    }, CHANGE);
-
-    PinFactory::get(PIN_BUTTON_DIP_MIDI_3)->attachInterrupt([&]() {
-        buttonPressed = PIN_BUTTON_DIP_MIDI_3;
-    }, CHANGE);
-
-    PinFactory::get(PIN_BUTTON_DIP_MIDI_4)->attachInterrupt([&]() {
-        buttonPressed = PIN_BUTTON_DIP_MIDI_4;
-    }, CHANGE);
-
     PinFactory::get(PIN_BUTTON_MODE)->attachInterrupt([&]() {
         buttonPressed = PIN_BUTTON_MODE;
     }, FALLING);

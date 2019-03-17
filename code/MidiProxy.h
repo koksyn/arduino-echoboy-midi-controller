@@ -2,6 +2,7 @@
 #define MIDI_PROXY_H
 
 #include <MIDI.h>
+#include "PinFactory.h"
 
 #define SERIAL_MIDI_BIT_RATE 9600
 #define MIDI_DEFAULT_CHANNEL 10
@@ -35,12 +36,15 @@
 class MidiProxy {
 private:
     static uint8_t channel;
+    static boolean channelBtnLastValue[4];
+    static uint8_t boolArrayToByte(bool* boolArray);
 public:
     static void initialize();
     static void setChannel(uint8_t newChannel);
     static void sendNote(int noteNumber);
     static void sendCC(int controlNumber, int controlValue);
     static void sendStepByCC(int controlNumber, int step, int totalSteps);
+    static void listenForMidiChannelChanges();
 };
 
 #endif
