@@ -116,7 +116,7 @@ PCF8574* PinFactory::getButtonExpander2()
     return buttonExpander2;
 }
 
-Pin* PinFactory::get(int key)
+Pin* PinFactory::get(byte key)
 {
     return pins[key];
 }

@@ -68,7 +68,7 @@ private:
     static State* states[STATES];
 public:
     static void initialize();
-    static State* get(int key);
+    static State* get(byte key);
 };
 
 #endif

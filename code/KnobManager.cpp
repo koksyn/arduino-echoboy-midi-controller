@@ -3,24 +3,23 @@
 ResponsiveAnalogRead* KnobManager::reading[KNOBS];
 
 void KnobManager::initialize()
-{ 
-    for(int knob = 0; knob < KNOBS; knob++) {
+{
+    for(byte knob = 0; knob < KNOBS; knob++) {
         // initialize reading
         reading[knob] = new ResponsiveAnalogRead(0, true);
-      
-        int readedValue = readKnob(knob);
 
         // update reading to initial knob position
         // it's important, because we avoid sending MIDI change signal after Power Up
-        reading[knob]->update(readedValue);
+        reading[knob]->update(readKnob(knob));
     }
 }
 
-int lastSynchronizedEchoTime = EMPTY_SYNC;
+byte lastSynchronizedEchoTime = EMPTY_SYNC;
+short knobValue = 0;
 
 void KnobManager::updateAllKnobs()
 {
-    int knobValue = 0;
+    knobValue = 0;
 
     if(readKnobAndSet(PIN_KNOB_ECHO_1_TIME)) {
         knobValue = reading[PIN_KNOB_ECHO_1_TIME]->getValue();
@@ -145,7 +144,7 @@ void KnobManager::updateAllKnobs()
     }
 }
 
-boolean KnobManager::readKnobAndSet(int knobPinNumber)
+boolean KnobManager::readKnobAndSet(uint8_t knobPinNumber)
 {
     reading[knobPinNumber]->update(
       readKnob(knobPinNumber)
@@ -155,14 +154,14 @@ boolean KnobManager::readKnobAndSet(int knobPinNumber)
     return reading[knobPinNumber]->hasChanged();
 }
 
-int KnobManager::readKnob(uint8_t knobPinNumber)
+short KnobManager::readKnob(uint8_t knobPinNumber)
 {
     return PinFactory::get(knobPinNumber)->read();
 }
 
 void KnobManager::forceAllKnobsToSendMIDI()
 {
-    int knobValue = 0;
+    knobValue = 0;
 
     // check that timing of Echo1 & Echo2 is in SYNC
     // or someone synchronized it earlier (but off the sync mode - without touching the knobs)

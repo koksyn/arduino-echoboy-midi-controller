@@ -455,7 +455,7 @@ void StateFactory::initialize()
     states[STATE_STYLE_ATMO_SPLATTERED]->setNextState(states[STATE_STYLE_ATMO_AMBIENT]);
 }
 
-State* StateFactory::get(int key)
+State* StateFactory::get(byte key)
 {
     return states[key];
 }

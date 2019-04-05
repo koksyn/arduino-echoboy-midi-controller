@@ -16,7 +16,7 @@ public:
 
 	uint8_t getAddress();
 
-	virtual int read();
+	virtual short read();
 	virtual void write(uint8_t value);
 	virtual void applyMode();
 	virtual void attachInterrupt(void (*userFunc)(void), uint8_t interruptMode);

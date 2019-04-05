@@ -5,9 +5,11 @@
 #include "PinFactory.h"
 #include "KnobManager.h"
 
+short pinCode = 0;
+
 void ButtonHandler::handle(uint8_t code)
 {
-    int pinCode = (int) code;
+    pinCode = (short) code;
 
     switch(pinCode) {
         // STYLE
@@ -135,7 +137,7 @@ void ButtonHandler::handle(uint8_t code)
             PinFactory::get(PIN_LED_MIDI_ALL)->write(HIGH);
 
             // execute all machines
-            for(int i=0; i<MACHINES; i++) {
+            for(byte i=0; i<MACHINES; i++) {
                 MachineFactory::get(i)->executeCurrentState();
             }
             // execute all knobs

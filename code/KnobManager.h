@@ -21,8 +21,8 @@ class KnobManager {
 private:
     static ResponsiveAnalogRead* reading[KNOBS];
 
-    static boolean readKnobAndSet(int knobPinNumber);
-    static int readKnob(uint8_t knobPinNumber);
+    static boolean readKnobAndSet(uint8_t knobPinNumber);
+    static short readKnob(uint8_t knobPinNumber);
 public:
     static void initialize();
     static void updateAllKnobs();
