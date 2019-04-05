@@ -51,26 +51,14 @@ void LcdManager::clearAll()
   render();
 }
 
-void LcdManager::printTop(int number)
+void LcdManager::printTop(uint8_t number)
 {
   itoa(number, topLine, DECIMAL);
   render();
 }
 
-void LcdManager::printTop(const String &text)
-{  
-  strcpy(topLine, text.c_str()); 
-  render();
-}
-
-void LcdManager::printBottom(int number)
+void LcdManager::printBottom(uint8_t number)
 {
   itoa(number, bottomLine, DECIMAL);
-  render();
-}
-
-void LcdManager::printBottom(const String &text)
-{
-  strcpy(bottomLine, text.c_str());
   render();
 }

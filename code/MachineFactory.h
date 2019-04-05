@@ -24,7 +24,7 @@ private:
     static Machine* machines[MACHINES];
 public:
     static void initialize();
-    static Machine* get(int key);
+    static Machine* get(uint8_t key);
 };
 
 #endif

@@ -121,11 +121,13 @@ Pin* PinFactory::get(byte key)
     return pins[key];
 }
 
+uint8_t iter;
+
 void PinFactory::runIntegratedCircuits()
 {
     // Arduino Analog + MCP3008 + Arduino Digital
-    for(uint8_t i=0; i<PIN_BUTTON_DIP_MIDI_3; i++) {
-        pins[i]->applyMode();
+    for(iter=0; iter<PIN_BUTTON_DIP_MIDI_3; iter++) {
+        pins[iter]->applyMode();
     }
 
     analogDigitalConverter->begin();
@@ -139,7 +141,7 @@ void PinFactory::runIntegratedCircuits()
     ledExpander4->begin(0x3D);
 
     // PCF 1,2,3,4,5,6
-    for(uint8_t i=PIN_BUTTON_DIP_MIDI_3; i<PINS; i++) {
-        pins[i]->applyMode();
+    for(iter=PIN_BUTTON_DIP_MIDI_3; iter<PINS; iter++) {
+        pins[iter]->applyMode();
     }
 }

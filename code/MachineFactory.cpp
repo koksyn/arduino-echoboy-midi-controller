@@ -26,7 +26,7 @@ void MachineFactory::initialize()
     machines[MACHINE_STYLE_ATMO] = new Machine(StateFactory::get(STATE_STYLE_ATMO_DISABLED));
 }
 
-Machine* MachineFactory::get(int key)
+Machine* MachineFactory::get(uint8_t key)
 {
     return machines[key];
 }
