@@ -30,29 +30,9 @@ void MidiProxy::setChannel(uint8_t newChannel)
     channel = newChannel;
 }
 
-void MidiProxy::sendNote(uint8_t noteNumber)
-{
-    MIDI.sendNoteOn(noteNumber, 127, channel);
-    delay(5);
-    MIDI.sendNoteOff(noteNumber, 0, channel);
-}
-
 void MidiProxy::sendCC(uint8_t controlNumber, uint8_t controlValue)
 {
     MIDI.sendControlChange(controlNumber, controlValue, channel);
-}
-
-short interval = 0;
-short pivot = 0;
-short controlValueForStep = 0;
-
-void MidiProxy::sendStepByCC(uint8_t controlNumber, uint8_t step, uint8_t totalSteps)
-{
-    interval = MIDI_MAX_VALUE / totalSteps;
-    pivot = (interval/2);
-    controlValueForStep = ((step - 1) * interval) + pivot;
-
-    sendCC(controlNumber, controlValueForStep);
 }
 
 uint8_t channelReaded = 0;

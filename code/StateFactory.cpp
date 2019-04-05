@@ -23,7 +23,7 @@ void StateFactory::initialize()
     // ---------- PRIME NUMBERS ----------
     states[STATE_PRIME_NUMBERS_DISABLED] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_PRIME_NUMBERS, uint8_t{1}, uint8_t{2});
+        MidiProxy::sendCC(CC_PRIME_NUMBERS, uint8_t{0});
 
         // led
         PinFactory::get(PIN_LED_PRIME_NUMBERS)->write(LOW); // off
@@ -31,7 +31,7 @@ void StateFactory::initialize()
 
     states[STATE_PRIME_NUMBERS_ENABLED] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_PRIME_NUMBERS, uint8_t{2}, uint8_t{2});
+        MidiProxy::sendCC(CC_PRIME_NUMBERS, uint8_t{127});
 
         // led
         PinFactory::get(PIN_LED_PRIME_NUMBERS)->write(HIGH); // on
@@ -43,7 +43,8 @@ void StateFactory::initialize()
     // ---------- ECHO 1 ----------
     states[STATE_ECHO_1_TIME] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_ECHO_1_DIVISION, uint8_t{1}, uint8_t{5});
+        MidiProxy::sendCC(CC_RHYTM_MODE, uint8_t{0});
+        MidiProxy::sendCC(CC_ECHO_1_DIVISION, uint8_t{0});
 
         // led
         PinFactory::get(PIN_LED_ECHO_1_NOTE)->write(HIGH); // off
@@ -52,7 +53,8 @@ void StateFactory::initialize()
 
     states[STATE_ECHO_1_NOTE] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_ECHO_1_DIVISION, uint8_t{2}, uint8_t{5});
+        MidiProxy::sendCC(CC_RHYTM_MODE, uint8_t{11});
+        MidiProxy::sendCC(CC_ECHO_1_DIVISION, uint8_t{28});
 
         // led
         PinFactory::get(PIN_LED_ECHO_1_NOTE)->write(LOW);
@@ -65,7 +67,8 @@ void StateFactory::initialize()
     // ---------- ECHO 2 ----------
     states[STATE_ECHO_2_TIME] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_ECHO_2_DIVISION, uint8_t{1}, uint8_t{5});
+        MidiProxy::sendCC(CC_RHYTM_MODE, uint8_t{0});
+        MidiProxy::sendCC(CC_ECHO_2_DIVISION, uint8_t{0});
 
         // led
         PinFactory::get(PIN_LED_ECHO_2_NOTE)->write(HIGH); // off
@@ -74,7 +77,8 @@ void StateFactory::initialize()
 
     states[STATE_ECHO_2_NOTE] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_ECHO_2_DIVISION, uint8_t{2}, uint8_t{5});
+        MidiProxy::sendCC(CC_RHYTM_MODE, uint8_t{11});
+        MidiProxy::sendCC(CC_ECHO_2_DIVISION, uint8_t{28});
 
         // led
         PinFactory::get(PIN_LED_ECHO_2_NOTE)->write(LOW);
@@ -87,7 +91,7 @@ void StateFactory::initialize()
     // ---------- MODE ----------
     states[STATE_MODE_PONG] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_MODE, uint8_t{3}, uint8_t{4});
+        MidiProxy::sendCC(CC_MODE, uint8_t{65});
 
         // led
         PinFactory::get(PIN_LED_MODE_PING_PONG)->write(LOW);
@@ -98,7 +102,7 @@ void StateFactory::initialize()
 
     states[STATE_MODE_DUAL] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_MODE, uint8_t{2}, uint8_t{4});
+        MidiProxy::sendCC(CC_MODE, uint8_t{33});
 
         // led
         PinFactory::get(PIN_LED_MODE_DUAL)->write(LOW);
@@ -107,7 +111,7 @@ void StateFactory::initialize()
 
     states[STATE_MODE_RHYTM] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_MODE, uint8_t{4}, uint8_t{4});
+        MidiProxy::sendCC(CC_MODE, uint8_t{127});
 
         // led
         PinFactory::get(PIN_LED_MODE_RHYTM)->write(LOW);
@@ -116,7 +120,7 @@ void StateFactory::initialize()
 
     states[STATE_MODE_SINGLE] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_MODE, uint8_t{1}, uint8_t{4});
+        MidiProxy::sendCC(CC_MODE, uint8_t{0});
 
         // led
         PinFactory::get(PIN_LED_MODE_SINGLE)->write(LOW);
@@ -131,14 +135,14 @@ void StateFactory::initialize()
     // ---------- BYPASS ----------
     states[STATE_BYPASS_DISABLED] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_BYPASS, uint8_t{1}, uint8_t{2});
+        MidiProxy::sendCC(CC_BYPASS, uint8_t{0});
         // led
         PinFactory::get(PIN_LED_BYPASS)->write(LOW); // off
     });
 
     states[STATE_BYPASS_ENABLED] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_BYPASS, uint8_t{2}, uint8_t{2});
+        MidiProxy::sendCC(CC_BYPASS, uint8_t{127});
         // led
         PinFactory::get(PIN_LED_BYPASS)->write(HIGH); // on
     });
