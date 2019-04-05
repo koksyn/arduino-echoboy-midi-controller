@@ -30,8 +30,8 @@
 #define CC_STYLE 38
 
 // Notes (for buttons) on/off
-#define NOTE_C2_BYPASS 36
-#define NOTE_C3_PRIME_NUMBERS 37
+#define CC_BYPASS 39
+#define CC_PRIME_NUMBERS 40
 
 class MidiProxy {
 private:
