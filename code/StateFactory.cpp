@@ -157,7 +157,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_TAPE_STUDIO] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{2}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{3});
 
         // leds
         PinFactory::get(PIN_LED_TAPE_STUDIO)->write(LOW);
@@ -168,7 +168,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_TAPE_CHEAP] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{6}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{19});
 
         // leds
         PinFactory::get(PIN_LED_TAPE_STUDIO)->write(HIGH); // off
@@ -177,7 +177,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_TAPE_TUBE] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{5}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{15});
 
         // leds
         PinFactory::get(PIN_LED_TAPE_CHEAP)->write(HIGH); // off
@@ -186,7 +186,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_TAPE_MASTER] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{1}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{0});
 
         // leds
         PinFactory::get(PIN_LED_TAPE_TUBE)->write(HIGH); // off
@@ -210,7 +210,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_ECHO_PLEX] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{3}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{7});
 
         // leds
         PinFactory::get(PIN_LED_ECHO_PLEX)->write(LOW);
@@ -219,7 +219,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_ECHO_SPACE] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{4}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{11});
 
         // leds
         PinFactory::get(PIN_LED_ECHO_PLEX)->write(HIGH); // off
@@ -228,7 +228,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_ECHO_TEL_RAY] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{9}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{31});
 
         // leds
         PinFactory::get(PIN_LED_ECHO_SPACE)->write(HIGH); // off
@@ -237,7 +237,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_ECHO_BINSONETTE] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{10}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{35});
 
         // leds
         PinFactory::get(PIN_LED_ECHO_TEL_RAY)->write(HIGH); // off
@@ -261,7 +261,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_BBD_MEMORY_MAN] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{7}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{23});
 
         // leds
         PinFactory::get(PIN_LED_BBD_MEMORY_MAN)->write(LOW);
@@ -270,7 +270,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_BBD_ANALOG] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{17}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{64});
 
         // leds
         PinFactory::get(PIN_LED_BBD_MEMORY_MAN)->write(HIGH); // off
@@ -279,7 +279,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_BBD_AM_RADIO] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{12}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{44});
 
         // leds
         PinFactory::get(PIN_LED_BBD_ANALOG)->write(HIGH); // off
@@ -288,7 +288,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_BBD_DM_2] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{8}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{27});
 
         // leds
         PinFactory::get(PIN_LED_BBD_AM_RADIO)->write(HIGH); // off
@@ -312,7 +312,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_BIAS_TRANSMITTER] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{15}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{56});
 
         // leds
         PinFactory::get(PIN_LED_BIAS_TRANSMITTER)->write(LOW);
@@ -321,7 +321,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_BIAS_DISTORTED] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{26}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{101});
 
         // leds
         PinFactory::get(PIN_LED_BIAS_TRANSMITTER)->write(HIGH); // off
@@ -330,7 +330,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_BIAS_SATURATED] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{22}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{84});
 
         // leds
         PinFactory::get(PIN_LED_BIAS_DISTORTED)->write(HIGH); // off
@@ -339,7 +339,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_BIAS_QUEEKED] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{27}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{105});
 
         // leds
         PinFactory::get(PIN_LED_BIAS_SATURATED)->write(HIGH); // off
@@ -363,7 +363,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_CHORUS_CE_1] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{20}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{76});
 
         // leds
         PinFactory::get(PIN_LED_CHORUS_CE_1)->write(LOW);
@@ -372,7 +372,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_CHORUS_ANALOG] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{19}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{72});
 
         // leds
         PinFactory::get(PIN_LED_CHORUS_CE_1)->write(HIGH); // off
@@ -381,7 +381,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_CHORUS_VIBRATO] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{21}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{80});
 
         // leds
         PinFactory::get(PIN_LED_CHORUS_ANALOG)->write(HIGH); // off
@@ -390,7 +390,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_CHORUS_DIGITAL] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{18}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{68});
 
         // leds
         PinFactory::get(PIN_LED_CHORUS_VIBRATO)->write(HIGH); // off
@@ -414,7 +414,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_ATMO_AMBIENT] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{28}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{109});
 
         // leds
         PinFactory::get(PIN_LED_ATMO_AMBIENT)->write(LOW);
@@ -423,7 +423,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_ATMO_VERBED] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{31}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{121});
 
         // leds
         PinFactory::get(PIN_LED_ATMO_AMBIENT)->write(HIGH); // off
@@ -432,7 +432,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_ATMO_DIFFUSED] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{29}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{113});
 
         // leds
         PinFactory::get(PIN_LED_ATMO_VERBED)->write(HIGH); // off
@@ -441,7 +441,7 @@ void StateFactory::initialize()
 
     states[STATE_STYLE_ATMO_SPLATTERED] = new State([&]() {
         // midi
-        MidiProxy::sendStepByCC(CC_STYLE, uint8_t{uint8_t{30}}, STYLES);
+        MidiProxy::sendCC(CC_STYLE, uint8_t{117});
 
         // leds
         PinFactory::get(PIN_LED_ATMO_DIFFUSED)->write(HIGH); // off
