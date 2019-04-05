@@ -62,6 +62,7 @@
 
 // AMOUNT OF STATES
 #define STATES 44
+#define STYLES 32
 
 class StateFactory {
 private:

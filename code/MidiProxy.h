@@ -41,9 +41,9 @@ private:
 public:
     static void initialize();
     static void setChannel(uint8_t newChannel);
-    static void sendNote(int noteNumber);
-    static void sendCC(int controlNumber, int controlValue);
-    static void sendStepByCC(int controlNumber, int step, int totalSteps);
+    static void sendNote(uint8_t noteNumber);
+    static void sendCC(uint8_t controlNumber, uint8_t controlValue);
+    static void sendStepByCC(uint8_t controlNumber, uint8_t step, uint8_t totalSteps);
     static void listenForMidiChannelChanges();
 };
 
