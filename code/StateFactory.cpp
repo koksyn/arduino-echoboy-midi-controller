@@ -44,6 +44,7 @@ void StateFactory::initialize()
     states[STATE_ECHO_1_TIME] = new State([&]() {
         // midi
         MidiProxy::sendCC(CC_RHYTM_MODE, uint8_t{0});
+        delay(50);
         MidiProxy::sendCC(CC_ECHO_1_DIVISION, uint8_t{0});
 
         // led
@@ -54,6 +55,7 @@ void StateFactory::initialize()
     states[STATE_ECHO_1_NOTE] = new State([&]() {
         // midi
         MidiProxy::sendCC(CC_RHYTM_MODE, uint8_t{11});
+        delay(50);
         MidiProxy::sendCC(CC_ECHO_1_DIVISION, uint8_t{28});
 
         // led
@@ -68,6 +70,7 @@ void StateFactory::initialize()
     states[STATE_ECHO_2_TIME] = new State([&]() {
         // midi
         MidiProxy::sendCC(CC_RHYTM_MODE, uint8_t{0});
+        delay(50);
         MidiProxy::sendCC(CC_ECHO_2_DIVISION, uint8_t{0});
 
         // led
@@ -78,6 +81,7 @@ void StateFactory::initialize()
     states[STATE_ECHO_2_NOTE] = new State([&]() {
         // midi
         MidiProxy::sendCC(CC_RHYTM_MODE, uint8_t{11});
+        delay(50);
         MidiProxy::sendCC(CC_ECHO_2_DIVISION, uint8_t{28});
 
         // led
