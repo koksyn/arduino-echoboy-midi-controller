@@ -62,13 +62,14 @@
 
 // AMOUNT OF STATES
 #define STATES 44
+#define STYLES 32
 
 class StateFactory {
 private:
     static State* states[STATES];
 public:
     static void initialize();
-    static State* get(int key);
+    static State* get(byte key);
 };
 
 #endif

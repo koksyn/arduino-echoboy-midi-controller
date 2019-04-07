@@ -1,6 +1,6 @@
 #include "Mcp3008Pin.h"
 
-int Mcp3008Pin::read()
+short Mcp3008Pin::read()
 {
     return converter->readADC(getAddress());
 }

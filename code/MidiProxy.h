@@ -30,8 +30,11 @@
 #define CC_STYLE 38
 
 // Notes (for buttons) on/off
-#define NOTE_C2_BYPASS 36
-#define NOTE_C3_PRIME_NUMBERS 37
+#define CC_BYPASS 39
+#define CC_PRIME_NUMBERS 40
+
+#define CC_RHYTM_MODE 41
+#define CC_RHYTM_TIME 42
 
 class MidiProxy {
 private:
@@ -41,9 +44,7 @@ private:
 public:
     static void initialize();
     static void setChannel(uint8_t newChannel);
-    static void sendNote(int noteNumber);
-    static void sendCC(int controlNumber, int controlValue);
-    static void sendStepByCC(int controlNumber, int step, int totalSteps);
+    static void sendCC(uint8_t controlNumber, uint8_t controlValue);
     static void listenForMidiChannelChanges();
 };
 

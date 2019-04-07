@@ -14,7 +14,7 @@ public:
     }
 
     void applyMode();
-    int read();
+    short read();
     void write(uint8_t value);
     void attachInterrupt(void (*userFunc)(void), uint8_t interruptMode);
 };

@@ -30,26 +30,12 @@ void MidiProxy::setChannel(uint8_t newChannel)
     channel = newChannel;
 }
 
-void MidiProxy::sendNote(int noteNumber)
-{
-    MIDI.sendNoteOn(noteNumber, 127, channel);
-    delay(5);
-    MIDI.sendNoteOff(noteNumber, 0, channel);
-}
-
-void MidiProxy::sendCC(int controlNumber, int controlValue)
+void MidiProxy::sendCC(uint8_t controlNumber, uint8_t controlValue)
 {
     MIDI.sendControlChange(controlNumber, controlValue, channel);
 }
 
-void MidiProxy::sendStepByCC(int controlNumber, int step, int totalSteps)
-{
-    int interval = MIDI_MAX_VALUE / totalSteps;
-    int pivot = (interval/2);
-    int controlValueForStep = ((step - 1) * interval) + pivot;
-
-    sendCC(controlNumber, controlValueForStep);
-}
+uint8_t channelReaded = 0;
 
 void MidiProxy::listenForMidiChannelChanges()
 {
@@ -59,7 +45,7 @@ void MidiProxy::listenForMidiChannelChanges()
     channelBtnLastValue[3] = !PinFactory::get(PIN_BUTTON_DIP_MIDI_1)->read();
 
     // readed Channel binary number (+1 because we shift by that 0-15 to midi 1-16)
-    uint8_t channelReaded = boolArrayToByte(channelBtnLastValue) + 1;
+    channelReaded = boolArrayToByte(channelBtnLastValue) + 1;
 
     // check that it differs from defaults
     if(channelReaded != channel) {
@@ -67,11 +53,14 @@ void MidiProxy::listenForMidiChannelChanges()
     }
 }
 
+uint8_t result = 0;
+byte i = 0;
+
 uint8_t MidiProxy::boolArrayToByte(bool* boolArray)
 {
-    uint8_t result = 0;
+    result = 0;
 
-    for(int i = 0; i < 4; i++)
+    for(i = 0; i < 4; i++)
     {
         if(*(boolArray + i))
         {

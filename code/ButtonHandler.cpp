@@ -5,9 +5,11 @@
 #include "PinFactory.h"
 #include "KnobManager.h"
 
+short pinCode = 0;
+
 void ButtonHandler::handle(uint8_t code)
 {
-    int pinCode = (int) code;
+    pinCode = (short) code;
 
     switch(pinCode) {
         // STYLE
@@ -123,7 +125,7 @@ void ButtonHandler::handle(uint8_t code)
                 MachineFactory::get(MACHINE_STYLE_ATMO)->setState(StateFactory::get(STATE_STYLE_ATMO_AMBIENT));
                 MachineFactory::get(MACHINE_STYLE_ATMO)->executeCurrentState();
             }
-                // was enabled
+            // was enabled
             else {
                 MachineFactory::get(MACHINE_STYLE_ATMO)->nextState();
             }
@@ -135,7 +137,7 @@ void ButtonHandler::handle(uint8_t code)
             PinFactory::get(PIN_LED_MIDI_ALL)->write(HIGH);
 
             // execute all machines
-            for(int i=0; i<MACHINES; i++) {
+            for(byte i=0; i<MACHINES; i++) {
                 MachineFactory::get(i)->executeCurrentState();
             }
             // execute all knobs
@@ -152,19 +154,78 @@ void ButtonHandler::handle(uint8_t code)
         // MODE
         case PIN_BUTTON_MODE:
             MachineFactory::get(MACHINE_MODE)->nextState();
+
+            // when user just change MODE to RHYTM or SINGLE
+            if(MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_RHYTM)) ||
+               MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_SINGLE))) {
+                if((MachineFactory::get(MACHINE_ECHO_1)->equalsState(StateFactory::get(STATE_ECHO_1_NOTE)) &&
+                    MachineFactory::get(MACHINE_ECHO_2)->equalsState(StateFactory::get(STATE_ECHO_2_TIME)))
+                   ||
+                   (MachineFactory::get(MACHINE_ECHO_1)->equalsState(StateFactory::get(STATE_ECHO_1_TIME)) &&
+                    MachineFactory::get(MACHINE_ECHO_2)->equalsState(StateFactory::get(STATE_ECHO_2_NOTE))))
+                {
+                    // synchronize also TIME DIVISION ECHO1-ECHO2
+                    MachineFactory::get(MACHINE_ECHO_2)->nextState();
+                }
+            }
+
             break;
 
         // ECHO1 & ECHO2
         case PIN_BUTTON_ECHO_1:
             MachineFactory::get(MACHINE_ECHO_1)->nextState();
+
+            // when user is in RHYTM or SINGLE MODE -> OR -> IS IN SYNC
+            if(MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_RHYTM)) ||
+               MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_SINGLE)) ||
+               MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
+                if((MachineFactory::get(MACHINE_ECHO_1)->equalsState(StateFactory::get(STATE_ECHO_1_NOTE)) &&
+                    MachineFactory::get(MACHINE_ECHO_2)->equalsState(StateFactory::get(STATE_ECHO_2_TIME)))
+                   ||
+                   (MachineFactory::get(MACHINE_ECHO_1)->equalsState(StateFactory::get(STATE_ECHO_1_TIME)) &&
+                    MachineFactory::get(MACHINE_ECHO_2)->equalsState(StateFactory::get(STATE_ECHO_2_NOTE))))
+                {
+                    // synchronize also TIME DIVISION ECHO1-ECHO2
+                    MachineFactory::get(MACHINE_ECHO_2)->nextState();
+                }
+            }
+
             break;
         case PIN_BUTTON_ECHO_2:
             MachineFactory::get(MACHINE_ECHO_2)->nextState();
+
+            // when user is in RHYTM or SINGLE MODE -> OR -> IS IN SYNC
+            if(MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_RHYTM)) ||
+               MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_SINGLE)) ||
+               MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
+                if((MachineFactory::get(MACHINE_ECHO_2)->equalsState(StateFactory::get(STATE_ECHO_2_NOTE)) &&
+                    MachineFactory::get(MACHINE_ECHO_1)->equalsState(StateFactory::get(STATE_ECHO_1_TIME)))
+                   ||
+                   (MachineFactory::get(MACHINE_ECHO_2)->equalsState(StateFactory::get(STATE_ECHO_2_TIME)) &&
+                    MachineFactory::get(MACHINE_ECHO_1)->equalsState(StateFactory::get(STATE_ECHO_1_NOTE))))
+                {
+                    // synchronize also TIME DIVISION ECHO1-ECHO2
+                    MachineFactory::get(MACHINE_ECHO_1)->nextState();
+                }
+            }
             break;
 
         // LCD
         case PIN_BUTTON_SYNC_TIME:
             MachineFactory::get(MACHINE_SYNC_TIME)->nextState();
+
+            // when user just enabled SYNC
+            if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
+                if((MachineFactory::get(MACHINE_ECHO_1)->equalsState(StateFactory::get(STATE_ECHO_1_NOTE)) &&
+                   MachineFactory::get(MACHINE_ECHO_2)->equalsState(StateFactory::get(STATE_ECHO_2_TIME)))
+                    ||
+                  (MachineFactory::get(MACHINE_ECHO_1)->equalsState(StateFactory::get(STATE_ECHO_1_TIME)) &&
+                   MachineFactory::get(MACHINE_ECHO_2)->equalsState(StateFactory::get(STATE_ECHO_2_NOTE))))
+                {
+                    // synchronize also TIME DIVISION ECHO1-ECHO2
+                    MachineFactory::get(MACHINE_ECHO_2)->nextState();
+                }
+            }
             break;
 
         case PIN_BUTTON_PRIME_NUMBERS:

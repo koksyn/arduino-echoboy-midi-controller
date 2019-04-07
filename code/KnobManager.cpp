@@ -3,24 +3,23 @@
 ResponsiveAnalogRead* KnobManager::reading[KNOBS];
 
 void KnobManager::initialize()
-{ 
-    for(int knob = 0; knob < KNOBS; knob++) {
+{
+    for(byte knob = 0; knob < KNOBS; knob++) {
         // initialize reading
         reading[knob] = new ResponsiveAnalogRead(0, true);
-      
-        int readedValue = readKnob(knob);
 
         // update reading to initial knob position
         // it's important, because we avoid sending MIDI change signal after Power Up
-        reading[knob]->update(readedValue);
+        reading[knob]->update(readKnob(knob));
     }
 }
 
-int lastSynchronizedEchoTime = EMPTY_SYNC;
+byte lastSynchronizedEchoTime = EMPTY_SYNC;
+short knobValue = 0;
 
 void KnobManager::updateAllKnobs()
 {
-    int knobValue = 0;
+    knobValue = 0;
 
     if(readKnobAndSet(PIN_KNOB_ECHO_1_TIME)) {
         knobValue = reading[PIN_KNOB_ECHO_1_TIME]->getValue();
@@ -29,15 +28,25 @@ void KnobManager::updateAllKnobs()
 
         // Send MIDI
         MidiProxy::sendCC(CC_ECHO_1_TIME, knobValue);
+        delay(5);
+        MidiProxy::sendCC(CC_RHYTM_TIME, knobValue);
         // Update top LCD line
         LcdManager::printTop(knobValue);
 
-        // check that timing of Echo1 & Echo2 is in SYNC
-        if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
+        // check that timing of Echo1 & Echo2 is in SYNC or in SINGLE MODE
+        if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED)) ||
+           MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_SINGLE))) {
             // Send MIDI
+            delay(5);
             MidiProxy::sendCC(CC_ECHO_2_TIME, knobValue);
             // Update bottom LCD line
-            LcdManager::printBottom(knobValue);
+            if(MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_SINGLE)) ||
+               MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_RHYTM))
+                    ) {
+                LcdManager::clearBottom();
+            } else {
+                LcdManager::printBottom(knobValue);
+            }
 
             lastSynchronizedEchoTime = knobValue;
         } else {
@@ -51,12 +60,22 @@ void KnobManager::updateAllKnobs()
 
         // Send MIDI
         MidiProxy::sendCC(CC_ECHO_2_TIME, knobValue);
+        delay(5);
+        MidiProxy::sendCC(CC_RHYTM_TIME, knobValue);
         // Update bottom LCD line
-        LcdManager::printBottom(knobValue);
+        if(MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_SINGLE)) ||
+           MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_RHYTM))
+                ) {
+            LcdManager::clearBottom();
+        } else {
+            LcdManager::printBottom(knobValue);
+        }
 
-        // check that timing of Echo1 & Echo2 is in SYNC
-        if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
+        // check that timing of Echo1 & Echo2 is in SYNC or in SINGLE MODE
+        if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED)) ||
+           MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_SINGLE))) {
             // Send MIDI
+            delay(5);
             MidiProxy::sendCC(CC_ECHO_1_TIME, knobValue);
             // Update top LCD line
             LcdManager::printTop(knobValue);
@@ -145,7 +164,7 @@ void KnobManager::updateAllKnobs()
     }
 }
 
-boolean KnobManager::readKnobAndSet(int knobPinNumber)
+boolean KnobManager::readKnobAndSet(uint8_t knobPinNumber)
 {
     reading[knobPinNumber]->update(
       readKnob(knobPinNumber)
@@ -155,14 +174,14 @@ boolean KnobManager::readKnobAndSet(int knobPinNumber)
     return reading[knobPinNumber]->hasChanged();
 }
 
-int KnobManager::readKnob(uint8_t knobPinNumber)
+short KnobManager::readKnob(uint8_t knobPinNumber)
 {
     return PinFactory::get(knobPinNumber)->read();
 }
 
 void KnobManager::forceAllKnobsToSendMIDI()
 {
-    int knobValue = 0;
+    knobValue = 0;
 
     // check that timing of Echo1 & Echo2 is in SYNC
     // or someone synchronized it earlier (but off the sync mode - without touching the knobs)

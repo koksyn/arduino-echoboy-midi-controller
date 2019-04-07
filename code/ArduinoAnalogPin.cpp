@@ -1,6 +1,6 @@
 #include "ArduinoAnalogPin.h"
 
-int ArduinoAnalogPin::read()
+short ArduinoAnalogPin::read()
 {
     return analogRead(getAddress());
 }

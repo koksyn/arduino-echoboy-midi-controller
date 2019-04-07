@@ -113,7 +113,7 @@ public:
     static PCF8574* getButtonExpander();
     static PCF8574* getButtonExpander2();
 
-    static Pin* get(int key);
+    static Pin* get(byte key);
     static void runIntegratedCircuits();
 };
 

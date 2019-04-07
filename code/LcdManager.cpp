@@ -15,33 +15,36 @@ void LcdManager::initialize()
 void LcdManager::render()
 {
   lcd->clear();
-  
-  lcd->setCursor(0,0);
-  lcd->print(topLine);
-  lcd->setCursor(0,1);
-  lcd->print(bottomLine);
+
+  if(topLine[0] != whitespace) {
+    lcd->setCursor(0, 0);
+    lcd->print(topLine);
+  }
+
+  if(bottomLine[0] != whitespace) {
+    lcd->setCursor(0, 1);
+    lcd->print(bottomLine);
+  }
 }
 
 void LcdManager::fillTopByWhitespaces()
 {
-  memset(topLine, whitespace, CHARS_PER_LINE);
+  topLine[0] = whitespace;
 }
 
 void LcdManager::fillBottomByWhitespaces()
 {
-  memset(bottomLine, whitespace, CHARS_PER_LINE);
+  bottomLine[0] = whitespace;
 }
 
 void LcdManager::clearTop()
 {
   fillTopByWhitespaces();
-  render();
 }
 
 void LcdManager::clearBottom()
 {
   fillBottomByWhitespaces();
-  render();
 }
 
 void LcdManager::clearAll()
@@ -51,26 +54,14 @@ void LcdManager::clearAll()
   render();
 }
 
-void LcdManager::printTop(int number)
+void LcdManager::printTop(uint8_t number)
 {
   itoa(number, topLine, DECIMAL);
   render();
 }
 
-void LcdManager::printTop(const String &text)
-{  
-  strcpy(topLine, text.c_str()); 
-  render();
-}
-
-void LcdManager::printBottom(int number)
+void LcdManager::printBottom(uint8_t number)
 {
   itoa(number, bottomLine, DECIMAL);
-  render();
-}
-
-void LcdManager::printBottom(const String &text)
-{
-  strcpy(bottomLine, text.c_str());
   render();
 }
