@@ -34,6 +34,7 @@
 #define CC_PRIME_NUMBERS 40
 
 #define CC_RHYTM_MODE 41
+#define CC_RHYTM_TIME 42
 
 class MidiProxy {
 private:

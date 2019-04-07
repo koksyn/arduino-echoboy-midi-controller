@@ -15,33 +15,36 @@ void LcdManager::initialize()
 void LcdManager::render()
 {
   lcd->clear();
-  
-  lcd->setCursor(0,0);
-  lcd->print(topLine);
-  lcd->setCursor(0,1);
-  lcd->print(bottomLine);
+
+  if(topLine[0] != whitespace) {
+    lcd->setCursor(0, 0);
+    lcd->print(topLine);
+  }
+
+  if(bottomLine[0] != whitespace) {
+    lcd->setCursor(0, 1);
+    lcd->print(bottomLine);
+  }
 }
 
 void LcdManager::fillTopByWhitespaces()
 {
-  memset(topLine, whitespace, CHARS_PER_LINE);
+  topLine[0] = whitespace;
 }
 
 void LcdManager::fillBottomByWhitespaces()
 {
-  memset(bottomLine, whitespace, CHARS_PER_LINE);
+  bottomLine[0] = whitespace;
 }
 
 void LcdManager::clearTop()
 {
   fillTopByWhitespaces();
-  render();
 }
 
 void LcdManager::clearBottom()
 {
   fillBottomByWhitespaces();
-  render();
 }
 
 void LcdManager::clearAll()
