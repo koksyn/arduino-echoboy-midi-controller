@@ -35,7 +35,7 @@ void loop() {
   
   // reset after handling
   if(buttonPressed > 0) {
-    LcdManager::printTop(buttonPressed);
+    // LcdManager::printTop(buttonPressed); // for debugging only
     buttonPressed = 0;
   }
 }
