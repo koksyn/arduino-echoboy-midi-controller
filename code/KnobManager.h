@@ -20,7 +20,7 @@
 class KnobManager {
 private:
     static ResponsiveAnalogRead* reading[KNOBS];
-
+  
     static boolean readKnobAndSet(uint8_t knobPinNumber);
     static short readKnob(uint8_t knobPinNumber);
 public:
