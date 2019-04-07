@@ -33,8 +33,9 @@ void KnobManager::updateAllKnobs()
         // Update top LCD line
         LcdManager::printTop(knobValue);
 
-        // check that timing of Echo1 & Echo2 is in SYNC
-        if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
+        // check that timing of Echo1 & Echo2 is in SYNC or in SINGLE MODE
+        if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED)) ||
+           MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_SINGLE))) {
             // Send MIDI
             delay(5);
             MidiProxy::sendCC(CC_ECHO_2_TIME, knobValue);
@@ -70,8 +71,9 @@ void KnobManager::updateAllKnobs()
             LcdManager::printBottom(knobValue);
         }
 
-        // check that timing of Echo1 & Echo2 is in SYNC
-        if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED))) {
+        // check that timing of Echo1 & Echo2 is in SYNC or in SINGLE MODE
+        if(MachineFactory::get(MACHINE_SYNC_TIME)->equalsState(StateFactory::get(STATE_SYNC_TIME_ENABLED)) ||
+           MachineFactory::get(MACHINE_MODE)->equalsState(StateFactory::get(STATE_MODE_SINGLE))) {
             // Send MIDI
             delay(5);
             MidiProxy::sendCC(CC_ECHO_1_TIME, knobValue);
