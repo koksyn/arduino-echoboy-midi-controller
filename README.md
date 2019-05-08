@@ -25,7 +25,7 @@ Photos of last final steps are listed below.
 
 ### Prototype front panel vision
 
-[[https://github.com/koksyn/arduino-echoboy-midi-controller/blob/readme/images/0.jpg|alt=frontpanel]]
+![FrontPanel](images/0.jpg?raw=true "FrontPanel")
 
 ### Working prototype with extra features like "Sync 1-2 echo time" or "Set Midi all".
 
