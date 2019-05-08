@@ -13,4 +13,38 @@ Project of USB-MIDI controller for [EchoBoy](https://www.soundtoys.com/product/e
 7. Code (ready)
 8. Box preparation
 
-Project already work in progress.
+## Prototype
+
+I turned dreams into reality. No one produces such a machine, so I made it myself from scratch.
+
+After 4 months of soldering, programming, drilling - working prototype is done.
+
+This machine is built based on Arduino Mega 2560, a lot of expanders and AD converters.
+
+Photos of last final steps are listed below. 
+
+### Prototype front panel vision
+
+[[https://github.com/koksyn/arduino-echoboy-midi-controller/blob/readme/images/0.jpg|alt=frontpanel]]
+
+### Working prototype with extra features like "Sync 1-2 echo time" or "Set Midi all".
+
+Also LCD screen inform us about last values of time/note for Echo 1 & 2.
+
+[1]
+
+### Back panel
+
+Back side with DIP 4-channel switch to choose MIDI channel. Power switch on the right side.
+
+[2]
+
+### Mounting inside box
+
+[3]
+
+### Soldering & testing process 
+
+Stress memory test on Arduino Uno R3 - which fails, so then I needed Arduino Mega to handle that.
+
+[4]
