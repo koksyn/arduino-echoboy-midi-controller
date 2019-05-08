@@ -25,7 +25,7 @@ Photos of last final steps are listed below.
 
 ### Prototype front panel vision
 
-![FrontPanel](images/0.jpg?raw=true "FrontPanel")
+![FrontPanel](images/0.png?raw=true "FrontPanel")
 
 ### Working prototype with extra features like "Sync 1-2 echo time" or "Set Midi all".
 
